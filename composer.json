@@ -1,0 +1,36 @@
+{
+  "name": "zoilomora/elastic-apm-agent-php",
+  "description": "Elastic APM agent for PHP",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Zoilo Mora",
+      "email": "zoilo.mora@hotmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ZoiloMora\\ElasticAPM\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ZoiloMora\\ElasticAPM\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=5.4",
+    "ext-mbstring": "*",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "paragonie/random_compat": "^2.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5",
+    "phpunit/phpunit": "^4.8"
+  },
+  "scripts": {
+    "test": "phpunit --testsuite 'Unit Tests' --coverage-text"
+  }
+}

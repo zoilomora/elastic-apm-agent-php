@@ -1,0 +1,88 @@
+<?php
+
+namespace ZoiloMora\ElasticAPM\Tests\Events\Metadata;
+
+use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
+use ZoiloMora\ElasticAPM\Events\Metadata\Metadata;
+
+class MetadataTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function given_data_when_instantiating_then_can_get_properties()
+    {
+        $service = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Metadata\Service');
+        $process = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Process');
+        $system = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\System');
+        $user = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\User');
+        $labels = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Tags');
+
+        $object = new Metadata(
+            $service,
+            $process,
+            $system,
+            $user,
+            $labels
+        );
+
+        self::assertEquals($service, $object->service());
+        self::assertEquals($process, $object->process());
+        self::assertEquals($system, $object->system());
+        self::assertEquals($user, $object->user());
+        self::assertEquals($labels, $object->labels());
+    }
+
+    /**
+     * @test
+     */
+    public function given_core_configuration_when_instantiating_then_can_get_properties()
+    {
+        $coreConfigurationMock = self::getMockBuilder('ZoiloMora\ElasticAPM\Configuration\CoreConfiguration')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+
+        $object = Metadata::create($coreConfigurationMock);
+
+        self::assertInstanceOf('ZoiloMora\ElasticAPM\Events\Metadata\Metadata', $object);
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_metadata_when_serialize_then_right_serialization()
+    {
+        $serviceValue = 'service';
+        $processValue = 'process';
+        $systemValue = 'system';
+        $userValue = 'user';
+        $labelsValue = 'labels';
+
+        $serviceMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Metadata\Service', $serviceValue);
+        $processMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\Process', $processValue);
+        $systemMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\System', $systemValue);
+        $userMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\User', $userValue);
+        $labelsMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\Tags', $labelsValue);
+
+        $object = new Metadata(
+            $serviceMock,
+            $processMock,
+            $systemMock,
+            $userMock,
+            $labelsMock
+        );
+
+        $expected = json_encode([
+            'metadata' => [
+                'service' => $serviceValue,
+                'process' => $processValue,
+                'system' => $systemValue,
+                'user' => $userValue,
+                'labels' => $labelsValue,
+            ],
+        ]);
+
+        self::assertEquals($expected, json_encode($object));
+    }
+}

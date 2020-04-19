@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# https://www.computerhope.com/unix/uset.htm
+set -e
+
+while true
+do
+	eval "$@"
+done
