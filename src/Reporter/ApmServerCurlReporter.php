@@ -98,7 +98,7 @@ final class ApmServerCurlReporter implements Reporter
     private function getHttpHeaders(array $headers)
     {
         return array_map(
-            static function($key, $value) {
+            static function ($key, $value) {
                 return sprintf(
                     '%s: %s',
                     $key,

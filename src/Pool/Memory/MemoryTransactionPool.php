@@ -24,7 +24,7 @@ final class MemoryTransactionPool extends MemoryPool implements TransactionPool
     {
         return array_filter(
             $this->items,
-            static function(Transaction $item) {
+            static function (Transaction $item) {
                 return $item->isFinished();
             }
         );

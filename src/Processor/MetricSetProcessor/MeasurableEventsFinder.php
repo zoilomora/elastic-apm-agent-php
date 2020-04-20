@@ -18,7 +18,7 @@ final class MeasurableEventsFinder
         return array_values(
             array_filter(
                 $events,
-                static function($event) {
+                static function ($event) {
                     return true === $event instanceof TransactionEvent || true === $event instanceof SpanEvent;
                 }
             )

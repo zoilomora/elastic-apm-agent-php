@@ -20,7 +20,7 @@ final class NDJson
     {
         return array_reduce(
             $events,
-            static function($carry, $item) {
+            static function ($carry, $item) {
                 $carry .= json_encode($item) . PHP_EOL;
 
                 return $carry;
