@@ -2,13 +2,14 @@
 
 namespace ZoiloMora\ElasticAPM\Processor\MetricSetProcessor;
 
-use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
+use ZoiloMora\ElasticAPM\Events\Span\Span as SpanEvent;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction as TransactionEvent;
 
 final class SelfDurationCalculator
 {
     /**
-     * @param Span|Transaction $event
-     * @param \ZoiloMora\ElasticAPM\Events\Span\Span[]|Transaction[] $events
+     * @param SpanEvent|TransactionEvent $event
+     * @param SpanEvent[]|TransactionEvent[] $events
      *
      * @return double
      */
@@ -16,12 +17,12 @@ final class SelfDurationCalculator
     {
         $selfDuration = $event->duration();
 
-        foreach ($events as $event) {
-            if ($event instanceof Transaction) {
+        foreach ($events as $item) {
+            if ($item instanceof TransactionEvent) {
                 continue;
             }
 
-            $selfDuration -= $event->duration();
+            $selfDuration -= $item->duration();
         }
 
         return $selfDuration;

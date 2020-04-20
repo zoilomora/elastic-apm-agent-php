@@ -133,7 +133,10 @@ final class DistributedTracing
      */
     private static function isValidHeader($header)
     {
-        return 1 === preg_match('/^'.self::VERSION.'-[\da-f]{32}-[\da-f]{16}-[\da-f]{2}$/', $header);
+        return 1 === preg_match(
+            '/^' . self::VERSION . '-[\da-f]{32}-[\da-f]{16}-[\da-f]{2}$/',
+            $header
+        );
     }
 
     /**

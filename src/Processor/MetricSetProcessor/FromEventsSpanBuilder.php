@@ -3,6 +3,8 @@
 namespace ZoiloMora\ElasticAPM\Processor\MetricSetProcessor;
 
 use ZoiloMora\ElasticAPM\Events\Event;
+use ZoiloMora\ElasticAPM\Events\Span\Span as SpanEvent;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction as TransactionEvent;
 
 final class FromEventsSpanBuilder
 {
@@ -20,14 +22,16 @@ final class FromEventsSpanBuilder
      * @param ByParentIdFinder $byParentIdFinder
      * @param SelfDurationCalculator $selfDurationCalculator
      */
-    public function __construct(ByParentIdFinder $byParentIdFinder, SelfDurationCalculator $selfDurationCalculator)
-    {
+    public function __construct(
+        ByParentIdFinder $byParentIdFinder,
+        SelfDurationCalculator $selfDurationCalculator
+    ) {
         $this->byParentIdFinder = $byParentIdFinder;
         $this->selfDurationCalculator = $selfDurationCalculator;
     }
 
     /**
-     * @param \ZoiloMora\ElasticAPM\Events\Transaction\Transaction|\ZoiloMora\ElasticAPM\Events\Span\Span $event
+     * @param TransactionEvent|SpanEvent $event
      * @param Event[] $events
      *
      * @return Span
@@ -49,7 +53,7 @@ final class FromEventsSpanBuilder
      */
     private function getTransactionId($event)
     {
-        return $event instanceof \ZoiloMora\ElasticAPM\Events\Span\Span
+        return $event instanceof SpanEvent
             ? $event->transactionId()
             : $event->id();
     }
@@ -60,7 +64,7 @@ final class FromEventsSpanBuilder
      */
     private function getType($event)
     {
-        return $event instanceof \ZoiloMora\ElasticAPM\Events\Span\Span
+        return $event instanceof SpanEvent
             ? $event->type()
             : 'app';
     }
@@ -71,20 +75,20 @@ final class FromEventsSpanBuilder
      */
     private function getSubType($event)
     {
-        return $event instanceof \ZoiloMora\ElasticAPM\Events\Span\Span
+        return $event instanceof SpanEvent
             ? $event->subtype()
             : null;
     }
 
     /**
-     * @param \ZoiloMora\ElasticAPM\Events\Transaction\Transaction|\ZoiloMora\ElasticAPM\Events\Span\Span $event
+     * @param TransactionEvent|SpanEvent $event
      * @param Event[] $events
      *
      * @return double
      */
     private function getSelfDuration($event, array $events)
     {
-        /** @var \ZoiloMora\ElasticAPM\Events\Transaction\Transaction[]|\ZoiloMora\ElasticAPM\Events\Span\Span[] $childrenEvents */
+        /** @var TransactionEvent[]|SpanEvent[] $childrenEvents */
         $childrenEvents = $this->byParentIdFinder->execute(
             $event->id(),
             $events

@@ -24,7 +24,7 @@ final class MemorySpanPool extends MemoryPool implements SpanPool
     {
         return array_filter(
             $this->items,
-            static function (Span $item) {
+            static function(Span $item) {
                 return $item->isFinished();
             }
         );

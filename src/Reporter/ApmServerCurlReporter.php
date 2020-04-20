@@ -42,10 +42,16 @@ final class ApmServerCurlReporter implements Reporter
         );
 
         $ch = curl_init($url);
+
+        if (false === $ch) {
+            throw new \Exception('Could not initialize the curl handler.');
+        }
+
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         $response = curl_exec($ch);
 
         $httpStatusCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -85,14 +91,14 @@ final class ApmServerCurlReporter implements Reporter
     /**
      * @param array $headers
      *
-     * @return void
+     * @return array
      *
      * @return array
      */
     private function getHttpHeaders(array $headers)
     {
         return array_map(
-            static function ($key, $value) {
+            static function($key, $value) {
                 return sprintf(
                     '%s: %s',
                     $key,

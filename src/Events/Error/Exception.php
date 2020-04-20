@@ -80,7 +80,7 @@ final class Exception implements \JsonSerializable
             throw new \InvalidArgumentException('At least one of the fields (message, type) must be a string.');
         }
 
-        $this->assertInstanceOfElements($stacktrace, StacktraceFrame::CLASS_NAME);
+        $this->assertInstanceOfElements(StacktraceFrame::CLASS_NAME, $stacktrace);
 
         $this->code = $code;
         $this->message = $message;
@@ -93,15 +93,19 @@ final class Exception implements \JsonSerializable
     }
 
     /**
-     * @param array $elements
      * @param string $class
+     * @param array|null $elements
      *
      * @return void
      *
      * @throws \InvalidArgumentException
      */
-    private function assertInstanceOfElements(array $elements, $class)
+    private function assertInstanceOfElements($class, array $elements = null)
     {
+        if (null === $elements) {
+            return;
+        }
+
         foreach ($elements as $item) {
             if (false === $item instanceof $class) {
                 throw new \InvalidArgumentException(

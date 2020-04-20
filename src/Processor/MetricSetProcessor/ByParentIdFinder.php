@@ -18,7 +18,7 @@ final class ByParentIdFinder
         return array_values(
             array_filter(
                 $events,
-                static function (TraceableEvent $event) use ($parentId) {
+                static function(TraceableEvent $event) use ($parentId) {
                     return $event->parentId() === $parentId;
                 }
             )

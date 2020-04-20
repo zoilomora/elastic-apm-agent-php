@@ -37,4 +37,20 @@ class ExceptionTest extends TestCase
             ]
         );
     }
+
+    /**
+     * @test
+     */
+    public function given_stacktrace_equal_to_null_when_instantiating_then_return_object()
+    {
+        $object = new Exception(
+            null,
+            'message',
+            null,
+            null,
+            null
+        );
+
+        self::assertInstanceOf('ZoiloMora\ElasticAPM\Events\Error\Exception', $object);
+    }
 }
