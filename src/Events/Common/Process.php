@@ -88,8 +88,12 @@ class Process implements \JsonSerializable
         return new self(
             getmypid(),
             null,
-            $_SERVER['_'],
-            $_SERVER['argv']
+            true === array_key_exists('_', $_SERVER)
+                ? $_SERVER['_']
+                : null,
+            true === array_key_exists('argv', $_SERVER)
+                ? $_SERVER['argv']
+                : null
         );
     }
 
