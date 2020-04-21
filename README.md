@@ -7,12 +7,12 @@
 </h1>
 
 <p align="center">
-<a href="https://github.com/zoilomora/elastic-apm-agent-php/actions?query=workflow%3A%22Build%22"><img src="https://img.shields.io/github/workflow/status/zoilomora/elastic-apm-agent-php/Build" alt="Build Status"/></a>
-<a href="https://scrutinizer-ci.com/g/zoilomora/elastic-apm-agent-php/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/zoilomora/elastic-apm-agent-php" alt="Coverage Status"/></a>
-<a href="https://scrutinizer-ci.com/g/zoilomora/elastic-apm-agent-php/?branch=master"><img src="https://img.shields.io/scrutinizer/quality/g/zoilomora/elastic-apm-agent-php" alt="Quality Status"/></a>
-<a href="https://packagist.org/packages/zoilomora/elastic-apm-agent-php"><img src="https://img.shields.io/packagist/php-v/zoilomora/elastic-apm-agent-php" alt="PHP Version"/></a>
-<a href="https://github.com/zoilomora/elastic-apm-agent-php/releases"><img src="https://img.shields.io/packagist/v/zoilomora/elastic-apm-agent-php?include_prereleases" alt="Latest Version"/></a>
-<a href="https://github.com/zoilomora/elastic-apm-agent-php/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zoilomora/elastic-apm-agent-php" alt="License"/></a>
+<a href="https://github.com/zoilomora/elastic-apm-agent-php/actions?query=workflow%3A%22Build%22"><img src="https://img.shields.io/github/workflow/status/zoilomora/elastic-apm-agent-php/Build?cacheSeconds=86400" alt="Build Status"/></a>
+<a href="https://scrutinizer-ci.com/g/zoilomora/elastic-apm-agent-php/?branch=master"><img src="https://img.shields.io/scrutinizer/coverage/g/zoilomora/elastic-apm-agent-php?cacheSeconds=86400" alt="Coverage Status"/></a>
+<a href="https://scrutinizer-ci.com/g/zoilomora/elastic-apm-agent-php/?branch=master"><img src="https://img.shields.io/scrutinizer/quality/g/zoilomora/elastic-apm-agent-php?cacheSeconds=86400" alt="Quality Status"/></a>
+<a href="https://packagist.org/packages/zoilomora/elastic-apm-agent-php"><img src="https://img.shields.io/packagist/php-v/zoilomora/elastic-apm-agent-php?cacheSeconds=86400" alt="PHP Version"/></a>
+<a href="https://github.com/zoilomora/elastic-apm-agent-php/releases"><img src="https://img.shields.io/packagist/v/zoilomora/elastic-apm-agent-php?include_prereleases&cacheSeconds=86400" alt="Latest Version"/></a>
+<a href="https://github.com/zoilomora/elastic-apm-agent-php/blob/master/LICENSE"><img src="https://img.shields.io/github/license/zoilomora/elastic-apm-agent-php?cacheSeconds=86400" alt="License"/></a>
 </p>
 
 This is an Agent written in PHP that implements the [Intake API v2] scheme to send tracking information to [Elastic APM].
