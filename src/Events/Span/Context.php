@@ -64,11 +64,11 @@ final class Context implements \JsonSerializable
         Tags $tags = null,
         Message $message = null
     ) {
-        $this->destination = $destination;
-        $this->db = $db;
-        $this->http = $http;
-        $this->tags = $tags;
-        $this->message = $message;
+        $this->setDestination($destination);
+        $this->setDb($db);
+        $this->setHttp($http);
+        $this->setTags($tags);
+        $this->setMessage($message);
     }
 
     /**
@@ -110,11 +110,27 @@ final class Context implements \JsonSerializable
     }
 
     /**
+     * @param Destination|null $destination
+     */
+    public function setDestination(Destination $destination = null)
+    {
+        $this->destination = $destination;
+    }
+
+    /**
      * @return Db|null
      */
     public function db()
     {
         return $this->db;
+    }
+
+    /**
+     * @param Db|null $db
+     */
+    public function setDb(Db $db = null)
+    {
+        $this->db = $db;
     }
 
     /**
@@ -126,6 +142,14 @@ final class Context implements \JsonSerializable
     }
 
     /**
+     * @param Http|null $http
+     */
+    public function setHttp(Http $http = null)
+    {
+        $this->http = $http;
+    }
+
+    /**
      * @return Tags|null
      */
     public function tags()
@@ -134,11 +158,27 @@ final class Context implements \JsonSerializable
     }
 
     /**
+     * @param Tags|null $tags
+     */
+    public function setTags(Tags $tags = null)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
      * @return Message|null
      */
     public function message()
     {
         return $this->message;
+    }
+
+    /**
+     * @param Message|null $message
+     */
+    public function setMessage(Message $message = null)
+    {
+        $this->message = $message;
     }
 
     /**
