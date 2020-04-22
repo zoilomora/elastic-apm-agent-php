@@ -105,7 +105,7 @@ class StacktraceFrameTest extends TestCase
             'module' => $class,
             'post_context' => null,
             'pre_context' => null,
-            'vars' => $args,
+            'vars' => null,
         ]);
 
         $object = StacktraceFrame::fromDebugBacktrace($trace);

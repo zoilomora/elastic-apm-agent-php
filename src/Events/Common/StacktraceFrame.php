@@ -199,7 +199,9 @@ class StacktraceFrame implements \JsonSerializable
             $args[] = $argument;
         }
 
-        return $args;
+        return 0 === count($args)
+            ? null
+            : $args;
     }
 
     /**
@@ -219,7 +221,9 @@ class StacktraceFrame implements \JsonSerializable
             'module' => $this->module,
             'post_context' => $this->postContext,
             'pre_context' => $this->preContext,
-            'vars' => $this->vars,
+            'vars' => null === $this->vars
+                ? null
+                : (object) $this->vars,
         ];
     }
 }
