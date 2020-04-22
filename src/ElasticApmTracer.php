@@ -223,6 +223,10 @@ final class ElasticApmTracer
         $items = $this->getEventsToSend();
         $this->eraseAllPools();
 
+        if (1 === count($items)) {
+            return;
+        }
+
         $items = $this->handler->execute($items);
 
         $this->reporter->report($items);

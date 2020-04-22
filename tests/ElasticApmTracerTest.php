@@ -147,11 +147,11 @@ class ElasticApmTracerTest extends TestCase
     /**
      * @test
      */
-    public function given_a_tracer_when_flushed_then_send_metadata_event()
+    public function given_a_tracer_when_flushed_then_not_send_anything()
     {
         $this->tracer->flush();
 
-        self::assertCount(1, $this->reporterMock->events());
+        self::assertCount(0, $this->reporterMock->events());
     }
 
     /**
