@@ -20,4 +20,28 @@ class HandlerTest extends TestCase
 
         new Handler($processors);
     }
+
+    /**
+     * @test
+     */
+    public function given_valid_processors_when_run_handler_then_return_events()
+    {
+        $expected = ['value'];
+
+        $processorMock = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Processor\Processor');
+        $processorMock
+            ->expects(self::once())
+            ->method('__invoke')
+            ->willReturn($expected)
+        ;
+
+        $processors = [
+            $processorMock,
+        ];
+
+        $service = new Handler($processors);
+        $actual = $service->execute([]);
+
+        self::assertEquals($expected, $actual);
+    }
 }
