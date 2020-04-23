@@ -20,11 +20,6 @@ use ZoiloMora\ElasticAPM\Reporter\Reporter;
 final class ElasticApmTracer
 {
     /**
-     * @var self
-     */
-    private static $instance = null;
-
-    /**
      * @var CoreConfiguration
      */
     private $coreConfiguration;
@@ -79,30 +74,6 @@ final class ElasticApmTracer
         $this->transactionPool = $poolFactory->createTransactionPool();
         $this->spanPool = $poolFactory->createSpanPool();
         $this->errorPool = $poolFactory->createErrorPool();
-    }
-
-    /**
-     * @param ElasticApmTracer|null $instance
-     *
-     * @return ElasticApmTracer
-     *
-     * @throws \Exception
-     */
-    public static function instance(self $instance = null)
-    {
-        if (null === $instance && null === self::$instance) {
-            throw new \Exception('The instance has not yet been injected.');
-        }
-
-        if (null !== $instance && null !== self::$instance) {
-            throw new \Exception('Already an injected object, it cannot be replaced.');
-        }
-
-        if (null !== $instance && null === self::$instance) {
-            self::$instance = $instance;
-        }
-
-        return self::$instance;
     }
 
     /**

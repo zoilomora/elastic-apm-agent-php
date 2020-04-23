@@ -28,53 +28,12 @@ class ElasticApmTracerTest extends TestCase
         $this->tracer = $this->createTracer([]);
     }
 
-    protected function tearDown()
-    {
-        parent::tearDown();
-
-        ElasticApmTracerMock::cleanup();
-    }
-
     /**
      * @test
      */
     public function given_requirements_when_instantiate_tracer_then_return_object()
     {
         self::assertInstanceOf('ZoiloMora\ElasticAPM\ElasticApmTracer', $this->tracer);
-    }
-
-    /**
-     * @test
-     */
-    public function given_empty_singleton_when_get_instance_then_throw_exception()
-    {
-        self::setExpectedException('Exception', 'The instance has not yet been injected.');
-
-        ElasticApmTracer::instance();
-    }
-
-    /**
-     * @test
-     */
-    public function given_filled_singleton_when_set_instance_then_throw_exception()
-    {
-        ElasticApmTracer::instance($this->tracer);
-
-        self::setExpectedException('Exception', 'Already an injected object, it cannot be replaced.');
-
-        ElasticApmTracer::instance($this->tracer);
-    }
-
-    /**
-     * @test
-     */
-    public function given_empty_singleton_when_set_instance_then_throw_exception()
-    {
-        ElasticApmTracer::instance($this->tracer);
-
-        $object = ElasticApmTracer::instance();
-
-        self::assertEquals($this->tracer, $object);
     }
 
     /**
