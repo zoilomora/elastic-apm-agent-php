@@ -4,6 +4,7 @@ namespace ZoiloMora\ElasticAPM\Events\Error;
 
 use ZoiloMora\ElasticAPM\Events\Common\StacktraceFrame;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
+use ZoiloMora\ElasticAPM\Utils\Assert;
 
 /**
  * Information about the originally thrown error.
@@ -123,8 +124,10 @@ final class Exception implements \JsonSerializable
      *
      * @return Exception
      */
-    public static function fromException(\Exception $exception)
+    public static function fromException($exception)
     {
+        Assert::throwable($exception);
+
         return new self(
             $exception->getCode(),
             $exception->getMessage(),
@@ -142,7 +145,7 @@ final class Exception implements \JsonSerializable
      *
      * @return array
      */
-    private static function mapStacktrace(\Exception $exception)
+    private static function mapStacktrace($exception)
     {
         $stacktrace = [];
 

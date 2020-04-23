@@ -6,6 +6,7 @@ use ZoiloMora\ElasticAPM\Events\Common\Context;
 use ZoiloMora\ElasticAPM\Events\Common\TimestampEpoch;
 use ZoiloMora\ElasticAPM\Events\TraceableEvent;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
+use ZoiloMora\ElasticAPM\Utils\Assert;
 
 /**
  * An error or a logged error message captured by an agent occurring in a monitored service
@@ -52,11 +53,13 @@ final class Error extends TraceableEvent
     public function __construct(
         $traceId,
         $parentId,
-        \Exception $exception,
+        $exception,
         Context $context = null,
         $transactionId = null
     ) {
         parent::__construct($traceId, $parentId);
+
+        Assert::throwable($exception);
 
         $this->timestamp = $this->generateTimestamp();
         $this->transactionId = $transactionId;

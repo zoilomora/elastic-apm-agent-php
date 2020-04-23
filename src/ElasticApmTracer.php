@@ -182,14 +182,14 @@ final class ElasticApmTracer
     }
 
     /**
-     * @param \Exception $exception
+     * @param mixed $exception
      * @param Context|null $context
      *
      * @return void
      *
      * @throws \Exception
      */
-    public function captureException(\Exception $exception, Context $context = null)
+    public function captureException($exception, Context $context = null)
     {
         $lastTransaction = $this->transactionPool->findLastUnfinished();
         if (null === $lastTransaction) {
