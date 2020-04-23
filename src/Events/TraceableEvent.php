@@ -82,28 +82,29 @@ abstract class TraceableEvent extends Event
      */
     private function processTrace($traceId, $parentId)
     {
-        if (null !== $traceId) {
-            if (false === is_string($traceId)) {
-                throw new \InvalidArgumentException('[traceId] must be of string type.');
-            }
+        $this->assertTraceId($traceId);
+        $this->assertParentId($parentId);
 
-            $this->traceId = $traceId;
+        $this->traceId = $traceId;
+        $this->parentId = $parentId;
+
+        $this->processDistributedTrace();
+
+        if (null === $this->traceId) {
+            $this->traceId = Cryptography::generateRandomBitsInHex(self::TRACE_ID_BITS);
         }
+    }
 
-        if (null !== $parentId) {
-            if (false === is_string($parentId)) {
-                throw new \InvalidArgumentException('[parentId] must be of string type.');
-            }
-
-            $this->parentId = $parentId;
-        }
-
+    /**
+     * @return void
+     *
+     * @throws \Exception
+     */
+    private function processDistributedTrace()
+    {
         $distributedTracing = DistributedTracing::discoverDistributedTracing();
-        if (null === $distributedTracing) {
-            $this->traceId = null === $this->traceId
-                ? Cryptography::generateRandomBitsInHex(self::TRACE_ID_BITS)
-                : $this->traceId;
 
+        if (null === $distributedTracing) {
             return;
         }
 
@@ -113,6 +114,34 @@ abstract class TraceableEvent extends Event
 
         if (null === $this->parentId) {
             $this->parentId = $distributedTracing->parentId();
+        }
+    }
+
+    /**
+     * @param mixed $traceId
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function assertTraceId($traceId)
+    {
+        if (null !== $traceId && false === is_string($traceId)) {
+            throw new \InvalidArgumentException('[traceId] must be of string type.');
+        }
+    }
+
+    /**
+     * @param mixed $parentId
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function assertParentId($parentId)
+    {
+        if (null !== $parentId && false === is_string($parentId)) {
+            throw new \InvalidArgumentException('[parentId] must be of string type.');
         }
     }
 
