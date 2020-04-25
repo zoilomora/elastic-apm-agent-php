@@ -2,6 +2,7 @@
 
 namespace ZoiloMora\ElasticAPM\Tests\Integration;
 
+use ZoiloMora\ElasticAPM\ElasticApmTracerSingleton;
 use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
 use ZoiloMora\ElasticAPM\Configuration\CoreConfiguration;
 use ZoiloMora\ElasticAPM\ElasticApmTracer;
@@ -25,7 +26,7 @@ class DistributedTracingTest extends TestCase
             MemoryPoolFactory::create()
         );
 
-        ElasticApmTracer::instance(
+        ElasticApmTracerSingleton::inject(
             new ElasticApmTracer(
                 CoreConfiguration::create([
                     'appName' => 'service-two',
@@ -84,15 +85,15 @@ class DistributedTracingTest extends TestCase
 
         // Simulate that it comes from a request
         $_SERVER['HTTP_ELASTIC_APM_TRACEPARENT'] = $spanCache->distributedTracing();
-        $transaction2 = ElasticApmTracer::instance()->startTransaction('GET /data', 'request');
+        $transaction2 = ElasticApmTracerSingleton::instance()->startTransaction('GET /data', 'request');
 
         usleep(rand(2000, 150000));
-        $spanWms = ElasticApmTracer::instance()->startSpan('/orders/{uuid}', 'request');
+        $spanWms = ElasticApmTracerSingleton::instance()->startSpan('/orders/{uuid}', 'request');
         usleep(rand(2000, 150000));
         $spanWms->stop();
 
         $transaction2->stop();
-        ElasticApmTracer::instance()->flush();
+        ElasticApmTracerSingleton::instance()->flush();
 
         usleep(rand(2000, 150000));
         $spanHttp->stop();
