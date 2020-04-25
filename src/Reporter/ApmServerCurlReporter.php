@@ -4,9 +4,11 @@ namespace ZoiloMora\ElasticAPM\Reporter;
 
 use ZoiloMora\ElasticAPM\Events\Common\Service\Agent;
 use ZoiloMora\ElasticAPM\Helper\NDJson;
+use ZoiloMora\ElasticAPM\Helper\Compressor;
 
 final class ApmServerCurlReporter implements Reporter
 {
+    const METHOD = 'POST';
     const URI = '/intake/v2/events';
 
     /**
@@ -31,12 +33,10 @@ final class ApmServerCurlReporter implements Reporter
      */
     public function report(array $events)
     {
-        if (false === $this->isActive()) {
-            return;
-        }
-
         $url = $this->getUrl();
-        $body = NDJson::convert($events);
+        $body = Compressor::gzip(
+            NDJson::convert($events)
+        );
         $headers = $this->getHttpHeaders(
             $this->getHeaders($body)
         );
@@ -47,7 +47,7 @@ final class ApmServerCurlReporter implements Reporter
             throw new \Exception('Could not initialize the curl handler.');
         }
 
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, self::METHOD);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -61,19 +61,6 @@ final class ApmServerCurlReporter implements Reporter
         if (202 !== $httpStatusCode) {
             throw new ReporterException($response, $httpStatusCode);
         }
-    }
-
-    /**
-     * @return bool
-     */
-    private function isActive()
-    {
-        $env = getenv('ELASTIC_APM_ACTIVE');
-        if (false === $env) {
-            return true;
-        }
-
-        return (bool) $env;
     }
 
     /**
@@ -132,6 +119,7 @@ final class ApmServerCurlReporter implements Reporter
     {
         return [
             'Content-Type' => NDJson::contentType(),
+            'Content-Encoding' => 'gzip',
             'User-Agent' => sprintf('%s/%s', Agent::NAME, Agent::VERSION),
             'Accept' => 'application/json',
         ];
