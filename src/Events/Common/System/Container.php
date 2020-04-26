@@ -2,6 +2,7 @@
 
 namespace ZoiloMora\ElasticAPM\Events\Common\System;
 
+use ZoiloMora\ElasticAPM\Utils\ControlGroups;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
 
 final class Container implements \JsonSerializable
@@ -51,7 +52,7 @@ final class Container implements \JsonSerializable
     public static function discover()
     {
         return new self(
-            (string) gethostname()
+            ControlGroups::instance()->containerId()
         );
     }
 
