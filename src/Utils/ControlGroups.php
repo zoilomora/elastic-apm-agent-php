@@ -81,7 +81,12 @@ final class ControlGroups
 
         $result = [];
         foreach ($lines as $line) {
-            list($hierarchyId, $controller, $path) = explode(':', $line);
+            $fields = explode(':', $line);
+            if (3 !== count($fields)) {
+                continue;
+            }
+
+            list($hierarchyId, $controller, $path) = $fields;
 
             $result[] = [
                 'hierarchy_id' => $hierarchyId,
