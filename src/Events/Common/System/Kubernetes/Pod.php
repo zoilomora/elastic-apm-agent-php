@@ -2,8 +2,8 @@
 
 namespace ZoiloMora\ElasticAPM\Events\Common\System\Kubernetes;
 
-use ZoiloMora\ElasticAPM\Utils\ControlGroups;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
+use ZoiloMora\ElasticAPM\Helper\MetadataExtractor\KubernetesAndContainer;
 
 final class Pod implements \JsonSerializable
 {
@@ -54,7 +54,7 @@ final class Pod implements \JsonSerializable
     {
         return new self(
             getenv('KUBERNETES_POD_NAME') ?: null,
-            getenv('KUBERNETES_POD_UID') ?: ControlGroups::instance()->podId()
+            getenv('KUBERNETES_POD_UID') ?: KubernetesAndContainer::instance()->podId()
         );
     }
 

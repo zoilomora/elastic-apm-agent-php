@@ -2,8 +2,8 @@
 
 namespace ZoiloMora\ElasticAPM\Events\Common\System;
 
-use ZoiloMora\ElasticAPM\Utils\ControlGroups;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
+use ZoiloMora\ElasticAPM\Helper\MetadataExtractor\KubernetesAndContainer;
 
 final class Container implements \JsonSerializable
 {
@@ -52,7 +52,7 @@ final class Container implements \JsonSerializable
     public static function discover()
     {
         return new self(
-            ControlGroups::instance()->containerId()
+            KubernetesAndContainer::instance()->containerId()
         );
     }
 

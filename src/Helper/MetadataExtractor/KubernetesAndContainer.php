@@ -1,15 +1,21 @@
 <?php
 
-namespace ZoiloMora\ElasticAPM\Utils;
+namespace ZoiloMora\ElasticAPM\Helper\MetadataExtractor;
 
-final class ControlGroups
+use ZoiloMora\ElasticAPM\Utils\ControlGroup\ControlGroupRepository;
+use ZoiloMora\ElasticAPM\Utils\ControlGroup\FileControlGroupRepository;
+
+final class KubernetesAndContainer
 {
-    const PATH = '/proc/self/cgroup';
-
     /**
      * @var self
      */
     private static $instance;
+
+    /**
+     * @var ControlGroupRepository
+     */
+    private $controlGroupRepository;
 
     /**
      * @var string|null
@@ -27,20 +33,22 @@ final class ControlGroups
     public static function instance()
     {
         if (null === self::$instance) {
-            self::$instance = new self();
+            self::$instance = new self(
+                new FileControlGroupRepository()
+            );
         }
 
         return self::$instance;
     }
 
-    private function __construct()
+    /**
+     * @param ControlGroupRepository $controlGroupRepository
+     */
+    public function __construct(ControlGroupRepository $controlGroupRepository)
     {
-        if (false === $this->isAllowedOperatingSystem()) {
-            return;
-        }
+        $this->controlGroupRepository = $controlGroupRepository;
 
-        $cGroups = $this->deserialize();
-        $this->extractInfo($cGroups);
+        $this->extractInfo();
     }
 
     /**
@@ -60,51 +68,14 @@ final class ControlGroups
     }
 
     /**
-     * @return bool
+     * @return void
      */
-    private function isAllowedOperatingSystem()
+    private function extractInfo()
     {
-        return 'Linux' === PHP_OS;
-    }
+        $cGroups = $this->controlGroupRepository->findAll();
 
-    /**
-     * @return array
-     */
-    private function deserialize()
-    {
-        if (false === is_readable(self::PATH)) {
-            return [];
-        }
-
-        $cGroup = file_get_contents(self::PATH);
-        $lines = explode(PHP_EOL, $cGroup);
-
-        $result = [];
-        foreach ($lines as $line) {
-            $fields = explode(':', $line);
-            if (3 !== count($fields)) {
-                continue;
-            }
-
-            list($hierarchyId, $controller, $path) = $fields;
-
-            $result[] = [
-                'hierarchy_id' => $hierarchyId,
-                'controller' => $controller,
-                'path' => $path,
-            ];
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param array $cGroups
-     */
-    private function extractInfo(array $cGroups)
-    {
         foreach ($cGroups as $cGroup) {
-            $path = $cGroup['path'];
+            $path = $cGroup->path();
 
             $dirname = $this->getDirname($path);
             $basename = $this->getBasename($path);
@@ -193,11 +164,21 @@ final class ControlGroups
         preg_match(
             '/^[[:xdigit:]]{64}$/',
             $basename,
-            $output_array
+            $output
         );
 
-        if (0 !== count($output_array)) {
-            return $output_array[0];
+        if (0 !== count($output)) {
+            return $output[0];
+        }
+
+        preg_match(
+            '/^[[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4,}$/',
+            $basename,
+            $output
+        );
+
+        if (0 !== count($output)) {
+            return $output[0];
         }
 
         return null;
