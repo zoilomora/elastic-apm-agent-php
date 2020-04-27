@@ -112,6 +112,7 @@ final class ElasticApmTracer
      * @param string|null $subtype
      * @param string|null $action
      * @param Events\Span\Context|null $context
+     * @param int $stacktraceSkip
      *
      * @return Span
      *
@@ -122,10 +123,12 @@ final class ElasticApmTracer
         $type,
         $subtype = null,
         $action = null,
-        Events\Span\Context $context = null
+        Events\Span\Context $context = null,
+        $stacktraceSkip = 1
     ) {
         $stacktrace = Stacktrace::getDebugBacktrace(
-            $this->coreConfiguration->stacktraceLimit()
+            $this->coreConfiguration->stacktraceLimit(),
+            $stacktraceSkip
         );
 
         $lastTransaction = $this->transactionPool->findLastUnfinished();

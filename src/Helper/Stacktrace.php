@@ -10,16 +10,20 @@ final class Stacktrace
      * Function to convert debug_backtrace results to an array of stack frames
      *
      * @param int $limit
+     * @param int $skip
      *
      * @return array|null
      */
-    public static function getDebugBacktrace($limit = 4)
+    public static function getDebugBacktrace($limit = 4, $skip = 1)
     {
         if (0 === $limit) {
             return null;
         }
 
-        $debugBacktrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
+        $debugBacktrace = array_slice(
+            debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT),
+            $skip
+        );
 
         $stacktraceFrames = [];
         foreach ($debugBacktrace as $trace) {
