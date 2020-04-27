@@ -131,6 +131,30 @@ class ElasticApmTracerTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function given_a_transaction_when_create_a_span_then_the_parent_id_is_the_transaction_id()
+    {
+        $transaction = $this->startTransaction();
+        $span = $this->tracer->startSpan('Handle message', 'message', 'domain_event');
+
+        self::assertEquals($transaction->id(), $span->parentId());
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_span_when_create_a_transaction_then_the_parent_id_is_the_span_id()
+    {
+        $this->startTransaction();
+        $span = $this->tracer->startSpan('Handle message', 'message', 'domain_event');
+
+        $transaction = $this->startTransaction();
+
+        self::assertEquals($span->id(), $transaction->parentId());
+    }
+
+    /**
      * @param array $config
      *
      * @return ElasticApmTracer

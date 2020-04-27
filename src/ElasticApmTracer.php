@@ -98,7 +98,7 @@ final class ElasticApmTracer
             $type,
             $context,
             null !== $lastEvent ? $lastEvent->traceId() : null,
-            null !== $lastEvent ? $lastEvent->parentId() : null
+            null !== $lastEvent ? $lastEvent->id() : null
         );
 
         $this->transactionPool->put($transaction);
@@ -234,10 +234,17 @@ final class ElasticApmTracer
     private function getLastUnfinishedEvent()
     {
         $lastTransaction = $this->transactionPool->findLastUnfinished();
-        $lastSpan = $this->spanPool->findLastUnfinished();
+        if (null === $lastTransaction) {
+            return null;
+        }
 
-        return null !== $lastSpan
-            ? $lastSpan
-            : $lastTransaction;
+        $lastSpan = $this->spanPool->findLastUnfinished();
+        if (null === $lastSpan) {
+            return $lastTransaction;
+        }
+
+        return $lastTransaction->timestamp() > $lastSpan->timestamp()
+            ? $lastTransaction
+            : $lastSpan;
     }
 }
