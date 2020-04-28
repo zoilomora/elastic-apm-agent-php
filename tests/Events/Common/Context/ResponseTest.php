@@ -23,20 +23,21 @@ class ResponseTest extends TestCase
     public function given_data_when_instantiating_then_can_get_properties()
     {
         $finished = 'finished';
-        $headersSent = 'headersSent';
+        $headers = [];
+        $headersSent = true;
+        $statusCode = 200;
 
         $object = new Response(
-            null,
-            null,
-            null,
-            null,
-            null,
             $finished,
-            $headersSent
+            $headers,
+            $headersSent,
+            $statusCode
         );
 
         self::assertEquals($finished, $object->finished());
+        self::assertEquals($headers, $object->headers());
         self::assertEquals($headersSent, $object->headersSent());
+        self::assertEquals($statusCode, $object->statusCode());
     }
 
     /**
@@ -45,27 +46,24 @@ class ResponseTest extends TestCase
     public function given_a_response_when_serialize_then_right_serialization()
     {
         $finished = 'finished';
-        $headersSent = 'headersSent';
+        $headers = [];
+        $headersSent = true;
+        $statusCode = 200;
 
         $object = new Response(
-            null,
-            null,
-            null,
-            null,
-            null,
             $finished,
-            $headersSent
+            $headers,
+            $headersSent,
+            $statusCode
         );
 
-        $actual = json_decode(
-            json_encode($object),
-            true
-        );
+        $expected = json_encode([
+            'finished' => $finished,
+            'headers' => $headers,
+            'headers_sent' => $headersSent,
+            'status_code' => $statusCode,
+        ]);
 
-        self::assertArrayHasKey('finished', $actual);
-        self::assertArrayHasKey('headers_sent', $actual);
-
-        self::assertEquals($finished, $actual['finished']);
-        self::assertEquals($headersSent, $actual['headers_sent']);
+        self::assertEquals($expected, json_encode($object));
     }
 }

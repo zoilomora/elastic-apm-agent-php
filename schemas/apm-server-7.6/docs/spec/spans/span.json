@@ -119,15 +119,12 @@
                                 },
                                 "status_code": {
                                     "type": ["integer", "null"],
-                                    "description": "Deprecated: Use span.context.http.response.status_code instead."
+                                    "description": "The status code of the http request."
                                 },
                                 "method": {
                                     "type": ["string", "null"],
                                     "maxLength": 1024,
                                     "description": "The method of the http request."
-                                },
-                                "response": {
-                                    "$ref": "../http_response.json"
                                 }
                             }
                         },

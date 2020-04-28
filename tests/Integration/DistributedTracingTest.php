@@ -75,12 +75,7 @@ class DistributedTracingTest extends TestCase
             'http',
             null,
             null,
-            Context::fromHttp(
-                new Context\Http(
-                    'http://service-two/orders/23423423',
-                    'GET'
-                )
-            )
+            new Context()
         );
 
         // Simulate that it comes from a request
@@ -96,6 +91,15 @@ class DistributedTracingTest extends TestCase
         ElasticApmTracerSingleton::instance()->flush();
 
         usleep(rand(2000, 150000));
+
+
+        $spanHttp->context()->setHttp(
+            new Context\Http(
+                'http://service-two/orders/23423423',
+                200,
+                'GET'
+            )
+        );
         $spanHttp->stop();
 
         usleep(rand(2000, 150000));

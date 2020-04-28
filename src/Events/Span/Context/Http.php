@@ -2,7 +2,6 @@
 
 namespace ZoiloMora\ElasticAPM\Events\Span\Context;
 
-use ZoiloMora\ElasticAPM\Events\Common\HttpResponse;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
 
 /**
@@ -18,28 +17,32 @@ final class Http implements \JsonSerializable
     private $url;
 
     /**
+     * The status code of the http request.
+     *
+     * @var int|null
+     */
+    private $statusCode;
+
+    /**
+     * The method of the http request.
+     *
      * @var string|null
      */
     private $method;
 
     /**
-     * @var HttpResponse|null
-     */
-    private $response;
-
-    /**
      * @param string|null $url
+     * @param int|null $statusCode
      * @param string|null $method
-     * @param HttpResponse|null $response
      */
     public function __construct(
         $url = null,
-        $method = null,
-        HttpResponse $response = null
+        $statusCode = null,
+        $method = null
     ) {
         $this->url = $url;
+        $this->statusCode = $statusCode;
         $this->method = $method;
-        $this->response = $response;
     }
 
     /**
@@ -51,19 +54,19 @@ final class Http implements \JsonSerializable
     }
 
     /**
+     * @return int|null
+     */
+    public function statusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
      * @return string|null
      */
     public function method()
     {
         return $this->method;
-    }
-
-    /**
-     * @return HttpResponse|null
-     */
-    public function response()
-    {
-        return $this->response;
     }
 
     /**
@@ -73,8 +76,8 @@ final class Http implements \JsonSerializable
     {
         return [
             'url' => $this->url,
+            'status_code' => $this->statusCode,
             'method' => Encoding::keywordField($this->method),
-            'response' => $this->response,
         ];
     }
 }

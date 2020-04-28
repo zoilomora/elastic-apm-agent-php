@@ -89,6 +89,6 @@ Read [LICENSE](LICENSE) for more information
 [Elastic APM]: https://www.elastic.co/apm
 [official APM Agent]: https://www.elastic.co/guide/en/apm/agent/index.html
 [PHP 5.4]: https://www.php.net/ChangeLog-5.php#5.4.0
-[API reference of version 7.6]: https://github.com/elastic/apm-server/tree/a00a2b0acfcbe0056aae078e14ddb47d212d73b3/docs/spec
+[API reference of version 7.6]: https://github.com/elastic/apm-server/tree/cd7a2425afa0f8d8726ea0905c03221d02322312/docs/spec
 [composer]: https://getcomposer.org/
 [official environment variables]: https://www.elastic.co/guide/en/apm/server/master/metadata-api.html#kubernetes-data

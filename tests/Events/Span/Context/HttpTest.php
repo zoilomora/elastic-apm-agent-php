@@ -23,14 +23,14 @@ class HttpTest extends TestCase
     public function given_data_when_instantiating_then_return_can_get_properties()
     {
         $url = 'http://example.com/index.php';
+        $statusCode = 200;
         $method = 'POST';
-        $response = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\HttpResponse');
 
-        $object = new Http($url, $method, $response);
+        $object = new Http($url, $statusCode, $method);
 
         self::assertEquals($url, $object->url());
+        self::assertEquals($statusCode, $object->statusCode());
         self::assertEquals($method, $object->method());
-        self::assertEquals($response, $object->response());
     }
 
     /**
@@ -39,17 +39,15 @@ class HttpTest extends TestCase
     public function given_a_http_count_when_serialize_then_right_serialization()
     {
         $url = 'http://example.com/index.php';
+        $statusCode = 200;
         $method = 'POST';
-        $responseValue = 'response';
 
-        $responseMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\HttpResponse', $responseValue);
-
-        $object = new Http($url, $method, $responseMock);
+        $object = new Http($url, $statusCode, $method);
 
         $expected = json_encode([
             'url' => $url,
+            'status_code' => $statusCode,
             'method' => $method,
-            'response' => $responseValue,
         ]);
 
         self::assertEquals($expected, json_encode($object));

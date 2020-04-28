@@ -2,9 +2,7 @@
 
 namespace ZoiloMora\ElasticAPM\Events\Common\Context;
 
-use ZoiloMora\ElasticAPM\Events\Common\HttpResponse;
-
-final class Response extends HttpResponse
+final class Response implements \JsonSerializable
 {
     /**
      * A boolean indicating whether the response was finished or not
@@ -14,32 +12,40 @@ final class Response extends HttpResponse
     private $finished;
 
     /**
+     * A mapping of HTTP headers of the response object
+     *
+     * @var array|null
+     */
+    private $headers;
+
+    /**
      * @var bool|null
      */
     private $headersSent;
 
     /**
-     * @param int|null $statusCode
-     * @param int|null $transferSize
-     * @param int|null $encodedBodySize
-     * @param int|null $decodedBodySize
-     * @param array|null $headers
+     * The HTTP status code of the response.
+     *
+     * @var int|null
+     */
+    private $statusCode;
+
+    /**
      * @param bool|null $finished
+     * @param array|null $headers
      * @param bool|null $headersSent
+     * @param int|null $statusCode
      */
     public function __construct(
-        $statusCode = null,
-        $transferSize = null,
-        $encodedBodySize = null,
-        $decodedBodySize = null,
-        array $headers = null,
         $finished = null,
-        $headersSent = null
+        array $headers = null,
+        $headersSent = null,
+        $statusCode = null
     ) {
-        parent::__construct($statusCode, $transferSize, $encodedBodySize, $decodedBodySize, $headers);
-
         $this->finished = $finished;
+        $this->headers = $headers;
         $this->headersSent = $headersSent;
+        $this->statusCode = $statusCode;
     }
 
     /**
@@ -51,6 +57,14 @@ final class Response extends HttpResponse
     }
 
     /**
+     * @return array|null
+     */
+    public function headers()
+    {
+        return $this->headers;
+    }
+
+    /**
      * @return bool|null
      */
     public function headersSent()
@@ -59,16 +73,23 @@ final class Response extends HttpResponse
     }
 
     /**
+     * @return int|null
+     */
+    public function statusCode()
+    {
+        return $this->statusCode;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
     {
-        return array_merge(
-            parent::jsonSerialize(),
-            [
-                'finished' => $this->finished,
-                'headers_sent' => $this->headersSent,
-            ]
-        );
+        return [
+            'finished' => $this->finished,
+            'headers' => $this->headers,
+            'headers_sent' => $this->headersSent,
+            'status_code' => $this->statusCode,
+        ];
     }
 }
