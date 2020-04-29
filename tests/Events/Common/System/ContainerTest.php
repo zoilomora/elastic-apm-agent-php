@@ -16,7 +16,7 @@ class ContainerTest extends TestCase
 
         $object = new Container($id);
 
-        self::assertEquals($id, $object->id());
+        self::assertSame($id, $object->id());
     }
 
     /**
@@ -42,7 +42,7 @@ class ContainerTest extends TestCase
             'id' => $id,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 
     /**
@@ -54,6 +54,6 @@ class ContainerTest extends TestCase
 
         $actual = json_encode($object);
 
-        self::assertEquals('null', $actual);
+        self::assertSame('null', $actual);
     }
 }

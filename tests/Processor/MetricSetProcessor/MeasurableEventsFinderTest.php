@@ -36,6 +36,6 @@ class MeasurableEventsFinderTest extends TestCase
 
         $actual = $service->execute($events);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

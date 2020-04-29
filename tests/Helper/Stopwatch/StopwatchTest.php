@@ -46,7 +46,7 @@ class StopwatchTest extends TestCase
 
         $duration = $this->stopwatch->getDuration();
 
-        self::assertEquals('double', gettype($duration));
+        self::assertSame('double', gettype($duration));
     }
 
     /**

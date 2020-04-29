@@ -24,8 +24,8 @@ class AgentTest extends TestCase
     {
         $object = Agent::discover();
 
-        self::assertEquals(Agent::NAME, $object->name());
-        self::assertEquals(Agent::VERSION, $object->version());
+        self::assertSame(Agent::NAME, $object->name());
+        self::assertSame(Agent::VERSION, $object->version());
         self::assertNull($object->ephemeralId());
     }
 
@@ -42,6 +42,6 @@ class AgentTest extends TestCase
             'ephemeral_id' => null,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

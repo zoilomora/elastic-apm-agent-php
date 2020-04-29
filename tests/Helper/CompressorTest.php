@@ -33,6 +33,6 @@ class CompressorTest extends TestCase
 
         $compressedData = Compressor::gzip($data);
 
-        self::assertEquals($expected, $compressedData);
+        self::assertSame($expected, $compressedData);
     }
 }

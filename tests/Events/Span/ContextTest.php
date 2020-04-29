@@ -26,11 +26,11 @@ class ContextTest extends TestCase
             $message
         );
 
-        self::assertEquals($destination, $object->destination());
-        self::assertEquals($db, $object->db());
-        self::assertEquals($http, $object->http());
-        self::assertEquals($tags, $object->tags());
-        self::assertEquals($message, $object->message());
+        self::assertSame($destination, $object->destination());
+        self::assertSame($db, $object->db());
+        self::assertSame($http, $object->http());
+        self::assertSame($tags, $object->tags());
+        self::assertSame($message, $object->message());
     }
 
     /**
@@ -105,6 +105,6 @@ class ContextTest extends TestCase
             'message' => $messageValue,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

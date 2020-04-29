@@ -17,8 +17,8 @@ class SpanCountTest extends TestCase
 
         $object = new SpanCount($started, $dropped);
 
-        self::assertEquals($started, $object->started());
-        self::assertEquals($dropped, $object->dropped());
+        self::assertSame($started, $object->started());
+        self::assertSame($dropped, $object->dropped());
     }
 
     /**
@@ -37,6 +37,6 @@ class SpanCountTest extends TestCase
         $object = new SpanCount($started, $dropped);
         $actual = json_encode($object);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

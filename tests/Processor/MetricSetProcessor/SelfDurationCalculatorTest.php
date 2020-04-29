@@ -29,7 +29,7 @@ class SelfDurationCalculatorTest extends TestCase
 
         $expected = $mainDuration - $firstChildDuration - $secondChildDuration;
 
-        self::assertEquals($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**

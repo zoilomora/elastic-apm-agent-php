@@ -54,10 +54,10 @@ class ProcessTest extends TestCase
             $argv
         );
 
-        self::assertEquals($pid, $object->pid());
-        self::assertEquals($ppid, $object->ppid());
-        self::assertEquals($title, $object->title());
-        self::assertEquals($argv, $object->argv());
+        self::assertSame($pid, $object->pid());
+        self::assertSame($ppid, $object->ppid());
+        self::assertSame($title, $object->title());
+        self::assertSame($argv, $object->argv());
     }
 
     /**
@@ -85,6 +85,6 @@ class ProcessTest extends TestCase
             'argv' => $argv,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

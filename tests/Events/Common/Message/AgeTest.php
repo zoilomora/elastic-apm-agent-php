@@ -26,7 +26,7 @@ class AgeTest extends TestCase
 
         $object = new Age($ms);
 
-        self::assertEquals($ms, $object->ms());
+        self::assertSame($ms, $object->ms());
     }
 
     /**
@@ -42,6 +42,6 @@ class AgeTest extends TestCase
             'ms' => $ms,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

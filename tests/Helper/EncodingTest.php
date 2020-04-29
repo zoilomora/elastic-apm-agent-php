@@ -15,7 +15,7 @@ class EncodingTest extends TestCase
         $expected = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
         $actual = Encoding::keywordField($expected);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     /**
@@ -31,6 +31,6 @@ class EncodingTest extends TestCase
         $expected = substr($data, 0, Encoding::KEYWORD_MAX_LENGTH - 1) . '…';
         $actual = Encoding::keywordField($data);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

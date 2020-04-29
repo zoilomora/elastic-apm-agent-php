@@ -23,7 +23,7 @@ class SpanSubTypeTest extends TestCase
      */
     public function given_subtype_when_assigned_then_can_get_property()
     {
-        self::assertEquals(self::EXPECTED, $this->subtype());
+        self::assertSame(self::EXPECTED, $this->subtype());
     }
 
     /**
@@ -31,6 +31,6 @@ class SpanSubTypeTest extends TestCase
      */
     public function given_subtype_when_assigned_then_can_get_encoding_property()
     {
-        self::assertEquals(self::EXPECTED, $this->getEncodingSubtype());
+        self::assertSame(self::EXPECTED, $this->getEncodingSubtype());
     }
 }

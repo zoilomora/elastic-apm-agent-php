@@ -48,12 +48,12 @@ class ContextTest extends TestCase
             $messageMock
         );
 
-        self::assertEquals($custom, $object->custom());
-        self::assertEquals($responseMock, $object->response());
-        self::assertEquals($requestMock, $object->request());
-        self::assertEquals($tagsMock, $object->tags());
-        self::assertEquals($userMock, $object->user());
-        self::assertEquals($messageMock, $object->message());
+        self::assertSame($custom, $object->custom());
+        self::assertSame($responseMock, $object->response());
+        self::assertSame($requestMock, $object->request());
+        self::assertSame($tagsMock, $object->tags());
+        self::assertSame($userMock, $object->user());
+        self::assertSame($messageMock, $object->message());
     }
 
     /**
@@ -95,6 +95,6 @@ class ContextTest extends TestCase
             'message' => $messageValue,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

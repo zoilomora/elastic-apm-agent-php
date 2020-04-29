@@ -29,31 +29,31 @@ class GroupBySpanTypesTest extends TestCase
         $spans = $service->execute($transactionId, $spans);
 
         foreach ($spans as $span) {
-            self::assertEquals($transactionId, $span->transactionId());
+            self::assertSame($transactionId, $span->transactionId());
 
             if ('db' === $span->type() && 'redis' === $span->subType()) {
-                self::assertEquals(2, $span->count());
-                self::assertEquals(1489, $span->sum());
+                self::assertSame(2, $span->count());
+                self::assertSame(1489, $span->sum());
             }
 
             if ('db' === $span->type() && 'mysql' === $span->subType()) {
-                self::assertEquals(2, $span->count());
-                self::assertEquals(945, $span->sum());
+                self::assertSame(2, $span->count());
+                self::assertSame(945, $span->sum());
             }
 
             if ('db' === $span->type() && 'postgresql' === $span->subType()) {
-                self::assertEquals(1, $span->count());
-                self::assertEquals(542, $span->sum());
+                self::assertSame(1, $span->count());
+                self::assertSame(542, $span->sum());
             }
 
             if ('cache' === $span->type() && 'file' === $span->subType()) {
-                self::assertEquals(1, $span->count());
-                self::assertEquals(914, $span->sum());
+                self::assertSame(1, $span->count());
+                self::assertSame(914, $span->sum());
             }
 
             if ('request' === $span->type() && 'external' === $span->subType()) {
-                self::assertEquals(1, $span->count());
-                self::assertEquals(345, $span->sum());
+                self::assertSame(1, $span->count());
+                self::assertSame(345, $span->sum());
             }
         }
     }

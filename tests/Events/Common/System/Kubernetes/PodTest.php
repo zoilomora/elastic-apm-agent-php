@@ -37,8 +37,8 @@ class PodTest extends TestCase
 
         $object = new Pod($name, $uid);
 
-        self::assertEquals($name, $object->name());
-        self::assertEquals($uid, $object->uid());
+        self::assertSame($name, $object->name());
+        self::assertSame($uid, $object->uid());
     }
 
     /**
@@ -56,6 +56,6 @@ class PodTest extends TestCase
             'uid' => $uid,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

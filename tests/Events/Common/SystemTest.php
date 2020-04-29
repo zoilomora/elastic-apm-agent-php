@@ -56,12 +56,12 @@ class SystemTest extends TestCase
             $kubernetes
         );
 
-        self::assertEquals($architecture, $object->architecture());
-        self::assertEquals($detectedHostname, $object->detectedHostname());
-        self::assertEquals($configuredHostname, $object->configuredHostname());
-        self::assertEquals($platform, $object->platform());
-        self::assertEquals($container, $object->container());
-        self::assertEquals($kubernetes, $object->kubernetes());
+        self::assertSame($architecture, $object->architecture());
+        self::assertSame($detectedHostname, $object->detectedHostname());
+        self::assertSame($configuredHostname, $object->configuredHostname());
+        self::assertSame($platform, $object->platform());
+        self::assertSame($container, $object->container());
+        self::assertSame($kubernetes, $object->kubernetes());
     }
 
     /**
@@ -104,6 +104,6 @@ class SystemTest extends TestCase
             'kubernetes' => $valueKubernetes,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

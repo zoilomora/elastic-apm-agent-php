@@ -32,8 +32,8 @@ class GroupSpanByTransactionIdTest extends TestCase
 
         self::assertArrayHasKey($transactionIdOne, $result);
         self::assertArrayHasKey($transactionIdTwo, $result);
-        self::assertEquals($spansOne, $result[$transactionIdOne]);
-        self::assertEquals($spansTwo, $result[$transactionIdTwo]);
+        self::assertSame($spansOne, $result[$transactionIdOne]);
+        self::assertSame($spansTwo, $result[$transactionIdTwo]);
     }
 
     private function createSpan($transactionId)

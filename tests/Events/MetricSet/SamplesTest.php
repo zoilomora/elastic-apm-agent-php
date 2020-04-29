@@ -63,6 +63,6 @@ class SamplesTest extends TestCase
         $expected = json_encode($sampleValue);
         $actual = json_encode($object);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

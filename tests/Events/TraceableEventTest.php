@@ -37,9 +37,9 @@ class TraceableEventTest extends TestCase
         $object = self::getMockForAbstractClass('ZoiloMora\ElasticAPM\Events\TraceableEvent');
         $distributedTracing = $object->distributedTracing();
 
-        self::assertEquals($fakeTraceId, $object->traceId());
+        self::assertSame($fakeTraceId, $object->traceId());
         self::assertNull($object->parentId());
-        self::assertEquals(
+        self::assertSame(
             'string',
             gettype($distributedTracing)
         );
@@ -63,9 +63,9 @@ class TraceableEventTest extends TestCase
 
         $distributedTracing = $object->distributedTracing();
 
-        self::assertEquals($traceId, $object->traceId());
-        self::assertEquals($parentId, $object->parentId());
-        self::assertEquals(
+        self::assertSame($traceId, $object->traceId());
+        self::assertSame($parentId, $object->parentId());
+        self::assertSame(
             'string',
             gettype($distributedTracing)
         );
@@ -137,9 +137,9 @@ class TraceableEventTest extends TestCase
 
         $distributedTracing = $object->distributedTracing();
 
-        self::assertEquals($traceId, $object->traceId());
-        self::assertEquals($parentId, $object->parentId());
-        self::assertEquals(
+        self::assertSame($traceId, $object->traceId());
+        self::assertSame($parentId, $object->parentId());
+        self::assertSame(
             'string',
             gettype($distributedTracing)
         );
@@ -170,6 +170,6 @@ class TraceableEventTest extends TestCase
             'parent_id' => $parentId,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

@@ -34,10 +34,10 @@ class ResponseTest extends TestCase
             $statusCode
         );
 
-        self::assertEquals($finished, $object->finished());
-        self::assertEquals($headers, $object->headers());
-        self::assertEquals($headersSent, $object->headersSent());
-        self::assertEquals($statusCode, $object->statusCode());
+        self::assertSame($finished, $object->finished());
+        self::assertSame($headers, $object->headers());
+        self::assertSame($headersSent, $object->headersSent());
+        self::assertSame($statusCode, $object->statusCode());
     }
 
     /**
@@ -64,6 +64,6 @@ class ResponseTest extends TestCase
             'status_code' => $statusCode,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

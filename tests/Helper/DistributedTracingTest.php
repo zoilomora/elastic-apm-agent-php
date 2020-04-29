@@ -28,7 +28,7 @@ class DistributedTracingTest extends TestCase
 
         $object = DistributedTracing::discoverDistributedTracing();
 
-        self::assertEquals($fake, $object);
+        self::assertSame($fake, $object);
     }
 
     /**
@@ -66,8 +66,8 @@ class DistributedTracingTest extends TestCase
         $object = DistributedTracing::discoverDistributedTracing();
 
         self::assertInstanceOf('ZoiloMora\ElasticAPM\Helper\DistributedTracing', $object);
-        self::assertEquals($traceId, $object->traceId());
-        self::assertEquals($parentId, $object->parentId());
-        self::assertEquals($traceFlags, $object->traceFlags());
+        self::assertSame($traceId, $object->traceId());
+        self::assertSame($parentId, $object->parentId());
+        self::assertSame($traceFlags, $object->traceFlags());
     }
 }

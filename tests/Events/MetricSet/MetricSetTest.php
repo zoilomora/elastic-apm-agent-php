@@ -86,10 +86,10 @@ class MetricSetTest extends TestCase
         self::assertArrayHasKey('span', $metricSet);
         self::assertArrayHasKey('tags', $metricSet);
 
-        self::assertEquals($timestamp, $metricSet['timestamp']);
-        self::assertEquals($samplesValue, $metricSet['samples']);
-        self::assertEquals($transactionValue, $metricSet['transaction']);
-        self::assertEquals($spanValue, $metricSet['span']);
-        self::assertEquals($tagsValue, $metricSet['tags']);
+        self::assertSame($timestamp, $metricSet['timestamp']);
+        self::assertSame($samplesValue, $metricSet['samples']);
+        self::assertSame($transactionValue, $metricSet['transaction']);
+        self::assertSame($spanValue, $metricSet['span']);
+        self::assertSame($tagsValue, $metricSet['tags']);
     }
 }

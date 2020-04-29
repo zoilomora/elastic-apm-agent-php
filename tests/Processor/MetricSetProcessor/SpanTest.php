@@ -48,10 +48,10 @@ class SpanTest extends TestCase
             $sum
         );
 
-        self::assertEquals($transactionId, $object->transactionId());
-        self::assertEquals($type, $object->type());
-        self::assertEquals($subType, $object->subType());
-        self::assertEquals($count, $object->count());
-        self::assertEquals($sum, $object->sum());
+        self::assertSame($transactionId, $object->transactionId());
+        self::assertSame($type, $object->type());
+        self::assertSame($subType, $object->subType());
+        self::assertSame($count, $object->count());
+        self::assertSame($sum, $object->sum());
     }
 }

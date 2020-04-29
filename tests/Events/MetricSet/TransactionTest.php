@@ -57,6 +57,6 @@ class TransactionTest extends TestCase
 
         $actual = json_encode($object);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

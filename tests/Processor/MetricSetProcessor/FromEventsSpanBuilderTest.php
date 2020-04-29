@@ -27,11 +27,11 @@ class FromEventsSpanBuilderTest extends TestCase
         $service = $this->getService($sum);
         $result = $service->execute($transaction, []);
 
-        self::assertEquals($transactionId, $result->transactionId());
-        self::assertEquals('app', $result->type());
+        self::assertSame($transactionId, $result->transactionId());
+        self::assertSame('app', $result->type());
         self::assertNull($result->subType());
-        self::assertEquals(1, $result->count());
-        self::assertEquals($sum, $result->sum());
+        self::assertSame(1, $result->count());
+        self::assertSame($sum, $result->sum());
     }
 
     /**
@@ -64,11 +64,11 @@ class FromEventsSpanBuilderTest extends TestCase
         $service = $this->getService($sum);
         $result = $service->execute($span, []);
 
-        self::assertEquals($transactionId, $result->transactionId());
-        self::assertEquals($type, $result->type());
-        self::assertEquals($subType, $result->subType());
-        self::assertEquals(1, $result->count());
-        self::assertEquals($sum, $result->sum());
+        self::assertSame($transactionId, $result->transactionId());
+        self::assertSame($type, $result->type());
+        self::assertSame($subType, $result->subType());
+        self::assertSame(1, $result->count());
+        self::assertSame($sum, $result->sum());
     }
 
     /**

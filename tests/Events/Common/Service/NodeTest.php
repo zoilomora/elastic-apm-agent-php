@@ -26,7 +26,7 @@ class NodeTest extends TestCase
 
         $object = new Node($configuredName);
 
-        self::assertEquals($configuredName, $object->configuredName());
+        self::assertSame($configuredName, $object->configuredName());
     }
 
     /**
@@ -42,6 +42,6 @@ class NodeTest extends TestCase
             'configured_name' => $configuredName,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

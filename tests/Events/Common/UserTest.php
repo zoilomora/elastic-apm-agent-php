@@ -28,9 +28,9 @@ class UserTest extends TestCase
 
         $object = new User($id, $email, $username);
 
-        self::assertEquals($id, $object->id());
-        self::assertEquals($email, $object->email());
-        self::assertEquals($username, $object->username());
+        self::assertSame($id, $object->id());
+        self::assertSame($email, $object->email());
+        self::assertSame($username, $object->username());
     }
 
     /**
@@ -86,6 +86,6 @@ class UserTest extends TestCase
             'username' => $username,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

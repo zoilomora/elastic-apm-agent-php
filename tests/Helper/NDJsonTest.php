@@ -12,7 +12,7 @@ class NDJsonTest extends TestCase
      */
     public function given_a_context_when_get_content_type_then_return_ok()
     {
-        self::assertEquals('application/x-ndjson', NDJson::contentType());
+        self::assertSame('application/x-ndjson', NDJson::contentType());
     }
 
     /**
@@ -32,6 +32,6 @@ class NDJsonTest extends TestCase
         $expected = '{"value":1}' . PHP_EOL . '{"value":2}' . PHP_EOL;
         $actual = NDJson::convert($data);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

@@ -78,7 +78,7 @@ class KubernetesAndContainerTest extends TestCase
         );
 
         self::assertNull($object->podId());
-        self::assertEquals($containerId, $object->containerId());
+        self::assertSame($containerId, $object->containerId());
     }
 
     /**
@@ -100,7 +100,7 @@ class KubernetesAndContainerTest extends TestCase
         );
 
         self::assertNull($object->podId());
-        self::assertEquals($containerId, $object->containerId());
+        self::assertSame($containerId, $object->containerId());
     }
 
     /**
@@ -123,8 +123,8 @@ class KubernetesAndContainerTest extends TestCase
             ])
         );
 
-        self::assertEquals($podId, $object->podId());
-        self::assertEquals($containerId, $object->containerId());
+        self::assertSame($podId, $object->podId());
+        self::assertSame($containerId, $object->containerId());
     }
 
     /**
@@ -147,8 +147,8 @@ class KubernetesAndContainerTest extends TestCase
             ])
         );
 
-        self::assertEquals($podId, $object->podId());
-        self::assertEquals($containerId, $object->containerId());
+        self::assertSame($podId, $object->podId());
+        self::assertSame($containerId, $object->containerId());
     }
 
     /**
@@ -171,8 +171,8 @@ class KubernetesAndContainerTest extends TestCase
             ])
         );
 
-        self::assertEquals($podId, $object->podId());
-        self::assertEquals($containerId, $object->containerId());
+        self::assertSame($podId, $object->podId());
+        self::assertSame($containerId, $object->containerId());
     }
 
     /**

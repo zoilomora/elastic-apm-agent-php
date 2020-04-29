@@ -54,13 +54,13 @@ class CoreConfigurationTest extends TestCase
             'metricSet' => $metricSet,
         ]);
 
-        self::assertEquals($active, $coreConfiguration->active());
-        self::assertEquals($appName, $coreConfiguration->appName());
-        self::assertEquals($appVersion, $coreConfiguration->appVersion());
-        self::assertEquals($frameworkName, $coreConfiguration->frameworkName());
-        self::assertEquals($frameworkVersion, $coreConfiguration->frameworkVersion());
-        self::assertEquals($environment, $coreConfiguration->environment());
-        self::assertEquals($stacktraceLimit, $coreConfiguration->stacktraceLimit());
-        self::assertEquals($metricSet, $coreConfiguration->metricSet());
+        self::assertSame($active, $coreConfiguration->active());
+        self::assertSame($appName, $coreConfiguration->appName());
+        self::assertSame($appVersion, $coreConfiguration->appVersion());
+        self::assertSame($frameworkName, $coreConfiguration->frameworkName());
+        self::assertSame($frameworkVersion, $coreConfiguration->frameworkVersion());
+        self::assertSame($environment, $coreConfiguration->environment());
+        self::assertSame($stacktraceLimit, $coreConfiguration->stacktraceLimit());
+        self::assertSame($metricSet, $coreConfiguration->metricSet());
     }
 }

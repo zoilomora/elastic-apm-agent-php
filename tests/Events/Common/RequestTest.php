@@ -66,7 +66,7 @@ class RequestTest extends TestCase
         $object = Request::discover();
 
         self::assertInstanceOf('ZoiloMora\ElasticAPM\Events\Common\Request', $object);
-        self::assertEquals(['User-Agent' => $userAgent], $object->headers());
+        self::assertSame(['User-Agent' => $userAgent], $object->headers());
     }
 
     /**
@@ -83,7 +83,7 @@ class RequestTest extends TestCase
         $object = Request::discover();
 
         self::assertInstanceOf('ZoiloMora\ElasticAPM\Events\Common\Request', $object);
-        self::assertEquals($serverProtocol, $object->httpVersion());
+        self::assertSame($serverProtocol, $object->httpVersion());
     }
 
     /**
@@ -111,14 +111,14 @@ class RequestTest extends TestCase
             $cookies
         );
 
-        self::assertEquals($method, $object->method());
-        self::assertEquals($url, $object->url());
-        self::assertEquals($body, $object->body());
-        self::assertEquals($env, $object->env());
-        self::assertEquals($headers, $object->headers());
-        self::assertEquals($httpVersion, $object->httpVersion());
-        self::assertEquals($socket, $object->socket());
-        self::assertEquals($cookies, $object->cookies());
+        self::assertSame($method, $object->method());
+        self::assertSame($url, $object->url());
+        self::assertSame($body, $object->body());
+        self::assertSame($env, $object->env());
+        self::assertSame($headers, $object->headers());
+        self::assertSame($httpVersion, $object->httpVersion());
+        self::assertSame($socket, $object->socket());
+        self::assertSame($cookies, $object->cookies());
     }
 
     /**
@@ -160,6 +160,6 @@ class RequestTest extends TestCase
             'cookies' => $cookies,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

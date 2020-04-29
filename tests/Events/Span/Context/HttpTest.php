@@ -28,9 +28,9 @@ class HttpTest extends TestCase
 
         $object = new Http($url, $statusCode, $method);
 
-        self::assertEquals($url, $object->url());
-        self::assertEquals($statusCode, $object->statusCode());
-        self::assertEquals($method, $object->method());
+        self::assertSame($url, $object->url());
+        self::assertSame($statusCode, $object->statusCode());
+        self::assertSame($method, $object->method());
     }
 
     /**
@@ -50,6 +50,6 @@ class HttpTest extends TestCase
             'method' => $method,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

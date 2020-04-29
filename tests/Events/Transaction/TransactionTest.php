@@ -26,7 +26,7 @@ class TransactionTest extends TestCase
             $parentId
         );
 
-        self::assertEquals($context, $object->context());
+        self::assertSame($context, $object->context());
     }
 
     /**
@@ -88,9 +88,9 @@ class TransactionTest extends TestCase
         self::assertArrayHasKey('duration', $transaction);
         self::assertArrayHasKey('result', $transaction);
 
-        self::assertEquals($name, $transaction['name']);
-        self::assertEquals($type, $transaction['type']);
-        self::assertEquals($contextValue, $transaction['context']);
+        self::assertSame($name, $transaction['name']);
+        self::assertSame($type, $transaction['type']);
+        self::assertSame($contextValue, $transaction['context']);
     }
 
     private function generateTransaction()

@@ -23,7 +23,7 @@ class TimestampEpochTest extends TestCase
      */
     public function given_timestamp_when_assigned_then_can_get_property()
     {
-        self::assertEquals(self::EXPECTED, $this->timestamp());
+        self::assertSame(self::EXPECTED, $this->timestamp());
     }
 
     /**
@@ -33,6 +33,6 @@ class TimestampEpochTest extends TestCase
     {
         $timestamp = $this->generateTimestamp();
 
-        self::assertEquals('integer', gettype($timestamp));
+        self::assertSame('integer', gettype($timestamp));
     }
 }

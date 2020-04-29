@@ -36,7 +36,7 @@ class ByParentIdFinderTest extends TestCase
         $service = new ByParentIdFinder();
         $result = $service->execute($parentIdOk, $events);
 
-        self::assertEquals($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     /**

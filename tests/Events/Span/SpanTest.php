@@ -40,8 +40,8 @@ class SpanTest extends TestCase
             $context
         );
 
-        self::assertEquals($transactionId, $object->transactionId());
-        self::assertEquals($context, $object->context());
+        self::assertSame($transactionId, $object->transactionId());
+        self::assertSame($context, $object->context());
     }
 
     /**
@@ -112,13 +112,13 @@ class SpanTest extends TestCase
         self::assertArrayHasKey('name', $span);
         self::assertArrayHasKey('stacktrace', $span);
 
-        self::assertEquals($name, $span['name']);
-        self::assertEquals($type, $span['type']);
-        self::assertEquals($subtype, $span['subtype']);
-        self::assertEquals($transactionId, $span['transaction_id']);
-        self::assertEquals($action, $span['action']);
-        self::assertEquals($contextValue, $span['context']);
-        self::assertEquals($stacktrace, $span['stacktrace']);
+        self::assertSame($name, $span['name']);
+        self::assertSame($type, $span['type']);
+        self::assertSame($subtype, $span['subtype']);
+        self::assertSame($transactionId, $span['transaction_id']);
+        self::assertSame($action, $span['action']);
+        self::assertSame($contextValue, $span['context']);
+        self::assertSame($stacktrace, $span['stacktrace']);
     }
 
     /**

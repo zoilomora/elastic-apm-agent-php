@@ -22,9 +22,9 @@ class ServiceTest extends TestCase
             $resource
         );
 
-        self::assertEquals($type, $object->type());
-        self::assertEquals($name, $object->name());
-        self::assertEquals($resource, $object->resource());
+        self::assertSame($type, $object->type());
+        self::assertSame($name, $object->name());
+        self::assertSame($resource, $object->resource());
     }
 
     /**
@@ -48,6 +48,6 @@ class ServiceTest extends TestCase
             'resource' => $resource,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

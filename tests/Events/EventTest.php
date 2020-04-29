@@ -24,7 +24,7 @@ class EventTest extends TestCase
 
         $object = self::getMockForAbstractClass('ZoiloMora\ElasticAPM\Events\Event');
 
-        self::assertEquals($fakeId, $object->id());
+        self::assertSame($fakeId, $object->id());
     }
 
     /**
@@ -41,6 +41,6 @@ class EventTest extends TestCase
             'id' => $fakeId,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

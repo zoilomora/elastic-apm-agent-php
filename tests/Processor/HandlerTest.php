@@ -42,6 +42,6 @@ class HandlerTest extends TestCase
         $service = new Handler($processors);
         $actual = $service->execute([]);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 }

@@ -38,12 +38,12 @@ class DbTest extends TestCase
             $rowsAffected
         );
 
-        self::assertEquals($instance, $object->instance());
-        self::assertEquals($link, $object->link());
-        self::assertEquals($statement, $object->statement());
-        self::assertEquals($type, $object->type());
-        self::assertEquals($user, $object->user());
-        self::assertEquals($rowsAffected, $object->rowsAffected());
+        self::assertSame($instance, $object->instance());
+        self::assertSame($link, $object->link());
+        self::assertSame($statement, $object->statement());
+        self::assertSame($type, $object->type());
+        self::assertSame($user, $object->user());
+        self::assertSame($rowsAffected, $object->rowsAffected());
     }
 
     /**
@@ -76,6 +76,6 @@ class DbTest extends TestCase
             'rows_affected' => $rowsAffected,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

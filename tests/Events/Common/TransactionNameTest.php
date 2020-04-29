@@ -23,7 +23,7 @@ class TransactionNameTest extends TestCase
      */
     public function given_name_when_assigned_then_can_get_property()
     {
-        self::assertEquals(self::EXPECTED, $this->name());
+        self::assertSame(self::EXPECTED, $this->name());
     }
 
     /**
@@ -31,6 +31,6 @@ class TransactionNameTest extends TestCase
      */
     public function given_name_when_assigned_then_can_get_encoding_property()
     {
-        self::assertEquals(self::EXPECTED, $this->getEncodingName());
+        self::assertSame(self::EXPECTED, $this->getEncodingName());
     }
 }

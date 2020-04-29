@@ -26,7 +26,7 @@ class QueueTest extends TestCase
 
         $object = new Queue($name);
 
-        self::assertEquals($name, $object->name());
+        self::assertSame($name, $object->name());
     }
 
     /**
@@ -42,6 +42,6 @@ class QueueTest extends TestCase
             'name' => $name,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

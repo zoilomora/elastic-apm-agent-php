@@ -26,11 +26,11 @@ class MetadataTest extends TestCase
             $labels
         );
 
-        self::assertEquals($service, $object->service());
-        self::assertEquals($process, $object->process());
-        self::assertEquals($system, $object->system());
-        self::assertEquals($user, $object->user());
-        self::assertEquals($labels, $object->labels());
+        self::assertSame($service, $object->service());
+        self::assertSame($process, $object->process());
+        self::assertSame($system, $object->system());
+        self::assertSame($user, $object->user());
+        self::assertSame($labels, $object->labels());
     }
 
     /**
@@ -83,6 +83,6 @@ class MetadataTest extends TestCase
             ],
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

@@ -42,14 +42,14 @@ class ServiceTest extends TestCase
             $node
         );
 
-        self::assertEquals($agent, $object->agent());
-        self::assertEquals($framework, $object->framework());
-        self::assertEquals($language, $object->language());
-        self::assertEquals($name, $object->name());
-        self::assertEquals($environment, $object->environment());
-        self::assertEquals($runtime, $object->runtime());
-        self::assertEquals($version, $object->version());
-        self::assertEquals($node, $object->node());
+        self::assertSame($agent, $object->agent());
+        self::assertSame($framework, $object->framework());
+        self::assertSame($language, $object->language());
+        self::assertSame($name, $object->name());
+        self::assertSame($environment, $object->environment());
+        self::assertSame($runtime, $object->runtime());
+        self::assertSame($version, $object->version());
+        self::assertSame($node, $object->node());
     }
 
     /**
@@ -109,6 +109,6 @@ class ServiceTest extends TestCase
             'node' => $nodeValue,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

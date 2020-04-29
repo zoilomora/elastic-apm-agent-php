@@ -24,7 +24,7 @@ class ByIdFinderTest extends TestCase
         $service = new ByIdFinder();
         $result = $service->execute($id, $events);
 
-        self::assertEquals($event, $result);
+        self::assertSame($event, $result);
     }
 
     /**

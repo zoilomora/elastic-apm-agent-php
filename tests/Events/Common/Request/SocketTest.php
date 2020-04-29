@@ -36,8 +36,8 @@ class SocketTest extends TestCase
 
         $object = new Socket($encrypted, $remoteAddress);
 
-        self::assertEquals($encrypted, $object->encrypted());
-        self::assertEquals($remoteAddress, $object->remoteAddress());
+        self::assertSame($encrypted, $object->encrypted());
+        self::assertSame($remoteAddress, $object->remoteAddress());
     }
 
     /**
@@ -93,7 +93,7 @@ class SocketTest extends TestCase
 
         $object = Socket::discover();
 
-        self::assertEquals($remoteAddress, $object->remoteAddress());
+        self::assertSame($remoteAddress, $object->remoteAddress());
     }
 
     /**
@@ -109,7 +109,7 @@ class SocketTest extends TestCase
 
         $object = Socket::discover();
 
-        self::assertEquals($realRemoteAddress, $object->remoteAddress());
+        self::assertSame($realRemoteAddress, $object->remoteAddress());
     }
 
     /**
@@ -127,6 +127,6 @@ class SocketTest extends TestCase
             'remote_address' => $remoteAddress,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

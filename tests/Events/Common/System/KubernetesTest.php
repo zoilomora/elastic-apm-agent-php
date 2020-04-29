@@ -32,8 +32,8 @@ class KubernetesTest extends TestCase
             $node
         );
 
-        self::assertEquals($pod, $object->pod());
-        self::assertEquals($node, $object->node());
+        self::assertSame($pod, $object->pod());
+        self::assertSame($node, $object->node());
     }
 
     /**
@@ -60,6 +60,6 @@ class KubernetesTest extends TestCase
             'node' => $nodeValue,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

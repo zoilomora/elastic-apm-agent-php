@@ -52,14 +52,14 @@ class UrlTest extends TestCase
             $hash
         );
 
-        self::assertEquals($raw, $object->raw());
-        self::assertEquals($protocol, $object->protocol());
-        self::assertEquals($full, $object->full());
-        self::assertEquals($hostname, $object->hostname());
-        self::assertEquals($port, $object->port());
-        self::assertEquals($pathname, $object->pathname());
-        self::assertEquals($search, $object->search());
-        self::assertEquals($hash, $object->hash());
+        self::assertSame($raw, $object->raw());
+        self::assertSame($protocol, $object->protocol());
+        self::assertSame($full, $object->full());
+        self::assertSame($hostname, $object->hostname());
+        self::assertSame($port, $object->port());
+        self::assertSame($pathname, $object->pathname());
+        self::assertSame($search, $object->search());
+        self::assertSame($hash, $object->hash());
     }
 
     /**
@@ -81,7 +81,7 @@ class UrlTest extends TestCase
 
         $object = Url::discover();
 
-        self::assertEquals('https', $object->protocol());
+        self::assertSame('https', $object->protocol());
     }
 
     /**
@@ -106,7 +106,7 @@ class UrlTest extends TestCase
 
         $object = Url::discover();
 
-        self::assertEquals($expected, $object->full());
+        self::assertSame($expected, $object->full());
     }
 
     /**
@@ -122,7 +122,7 @@ class UrlTest extends TestCase
 
         $object = Url::discover();
 
-        self::assertEquals($expected, $object->search());
+        self::assertSame($expected, $object->search());
     }
 
     /**
@@ -161,6 +161,6 @@ class UrlTest extends TestCase
             'hash' => $hash,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

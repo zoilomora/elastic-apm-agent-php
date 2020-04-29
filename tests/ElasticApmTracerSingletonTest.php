@@ -52,7 +52,7 @@ class ElasticApmTracerSingletonTest extends TestCase
 
         $actual = ElasticApmTracerSingleton::instance();
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     /**

@@ -49,7 +49,7 @@ class MetricsSetBuilderTest extends TestCase
         /** @var MetricSet $transactionMetricSet */
         $transactionMetricSet = $result[0];
 
-        self::assertEquals(
+        self::assertSame(
             json_encode([
                 'metricset' => [
                     'timestamp' => $timestamp,
@@ -76,7 +76,7 @@ class MetricsSetBuilderTest extends TestCase
         /** @var MetricSet $spanMetricSet */
         $spanMetricSet = $result[1];
 
-        self::assertEquals(
+        self::assertSame(
             json_encode([
                 'metricset' => [
                     'timestamp' => $timestamp,

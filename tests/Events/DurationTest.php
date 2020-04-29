@@ -14,7 +14,7 @@ class DurationTest extends TestCase
      */
     public function given_the_without_initializing_trait_when_ask_is_finished_then_answer_is_false()
     {
-        self::assertEquals(false, $this->isFinished());
+        self::assertSame(false, $this->isFinished());
     }
 
     /**
@@ -45,7 +45,7 @@ class DurationTest extends TestCase
 
         $this->stopClock();
 
-        self::assertEquals($duration, $this->duration());
-        self::assertEquals(true, $this->isFinished());
+        self::assertSame($duration, $this->duration());
+        self::assertSame(true, $this->isFinished());
     }
 }

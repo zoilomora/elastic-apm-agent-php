@@ -26,10 +26,10 @@ class MessageTest extends TestCase
             $headers
         );
 
-        self::assertEquals($queueMock, $object->queue());
-        self::assertEquals($ageMock, $object->age());
-        self::assertEquals($body, $object->body());
-        self::assertEquals($headers, $object->headers());
+        self::assertSame($queueMock, $object->queue());
+        self::assertSame($ageMock, $object->age());
+        self::assertSame($body, $object->body());
+        self::assertSame($headers, $object->headers());
     }
 
     /**
@@ -61,6 +61,6 @@ class MessageTest extends TestCase
             'headers' => $headers,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

@@ -107,7 +107,7 @@ class MetricSetProcessorTest extends TestCase
         );
         $result = $service($events);
 
-        self::assertEquals($expected, $result);
+        self::assertSame($expected, $result);
     }
 
     private function createSpan()

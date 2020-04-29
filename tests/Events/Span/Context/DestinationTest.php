@@ -18,9 +18,9 @@ class DestinationTest extends TestCase
 
         $object = new Destination($address, $port, $service);
 
-        self::assertEquals($address, $object->address());
-        self::assertEquals($port, $object->port());
-        self::assertEquals($service, $object->service());
+        self::assertSame($address, $object->address());
+        self::assertSame($port, $object->port());
+        self::assertSame($service, $object->service());
     }
 
     /**
@@ -45,6 +45,6 @@ class DestinationTest extends TestCase
             'service' => $serviceValue,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

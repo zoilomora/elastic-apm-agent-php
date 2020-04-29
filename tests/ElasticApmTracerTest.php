@@ -138,7 +138,7 @@ class ElasticApmTracerTest extends TestCase
         $transaction = $this->startTransaction();
         $span = $this->tracer->startSpan('Handle message', 'message', 'domain_event');
 
-        self::assertEquals($transaction->id(), $span->parentId());
+        self::assertSame($transaction->id(), $span->parentId());
     }
 
     /**
@@ -151,7 +151,7 @@ class ElasticApmTracerTest extends TestCase
 
         $transaction = $this->startTransaction();
 
-        self::assertEquals($span->id(), $transaction->parentId());
+        self::assertSame($span->id(), $transaction->parentId());
     }
 
     /**

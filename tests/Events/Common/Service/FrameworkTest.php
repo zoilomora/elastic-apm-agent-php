@@ -30,8 +30,8 @@ class FrameworkTest extends TestCase
             $version
         );
 
-        self::assertEquals($name, $object->name());
-        self::assertEquals($version, $object->version());
+        self::assertSame($name, $object->name());
+        self::assertSame($version, $object->version());
     }
 
     /**
@@ -61,8 +61,8 @@ class FrameworkTest extends TestCase
 
         $object = Framework::create($coreConfigurationMock);
 
-        self::assertEquals($name, $object->name());
-        self::assertEquals($version, $object->version());
+        self::assertSame($name, $object->name());
+        self::assertSame($version, $object->version());
     }
 
     /**
@@ -83,6 +83,6 @@ class FrameworkTest extends TestCase
             'version' => $version,
         ]);
 
-        self::assertEquals($expected, json_encode($object));
+        self::assertSame($expected, json_encode($object));
     }
 }

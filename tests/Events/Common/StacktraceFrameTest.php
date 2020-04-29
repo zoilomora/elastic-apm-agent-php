@@ -111,7 +111,7 @@ class StacktraceFrameTest extends TestCase
         $object = StacktraceFrame::fromDebugBacktrace($trace);
         $actual = json_encode($object);
 
-        self::assertEquals($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     private function getExceptionTrace()

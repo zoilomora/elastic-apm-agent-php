@@ -45,6 +45,6 @@ class CryptographyTest extends TestCase
 
         $value = Cryptography::generateRandomBitsInHex(16);
 
-        self::assertEquals($fake, $value);
+        self::assertSame($fake, $value);
     }
 }
