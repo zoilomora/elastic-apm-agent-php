@@ -75,6 +75,31 @@ class StacktraceFrameTest extends TestCase
     /**
      * @test
      */
+    public function given_args_without_utf8_encoding_when_instance_then_returns_error_message()
+    {
+        $debugBacktrace = [
+            'file' => 'test.php',
+            'class' => 'Test',
+            'args' => [
+                mb_convert_encoding('華夷譯語', 'UCS-4LE'),
+            ],
+        ];
+
+        $result = StacktraceFrame::fromDebugBacktrace($debugBacktrace);
+
+        $data = json_decode(
+            json_encode($result),
+            true
+        );
+
+        $expected = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+
+        self::assertSame($expected, $data['vars'][0]);
+    }
+
+    /**
+     * @test
+     */
     public function given_a_stacktrace_frame_when_serialize_then_right_serialization()
     {
         $file = '/var/app/tests/Events/Common/StacktraceFrameTest.php';

@@ -196,6 +196,12 @@ class StacktraceFrame implements \JsonSerializable
                 continue;
             }
 
+            if (true === is_string($argument) && false === mb_check_encoding($argument, 'utf-8')) {
+                $args[] = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+
+                continue;
+            }
+
             $args[] = $argument;
         }
 
