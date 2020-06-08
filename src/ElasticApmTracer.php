@@ -192,15 +192,22 @@ final class ElasticApmTracer
             return;
         }
 
-        $items = $this->getEventsToSend();
+        $events = $this->getEventsToSend();
 
-        if (1 === count($items)) {
+        if (0 === count($events)) {
             return;
         }
 
-        $items = $this->handler->execute($items);
+        $events = array_merge(
+            [
+                $this->metadata,
+            ],
+            $events
+        );
 
-        $this->reporter->report($items);
+        $events = $this->handler->execute($events);
+
+        $this->reporter->report($events);
     }
 
     /**
@@ -220,9 +227,6 @@ final class ElasticApmTracer
         }
 
         return array_merge(
-            [
-                $this->metadata,
-            ],
             $transactions,
             $events
         );
