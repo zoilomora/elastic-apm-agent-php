@@ -81,7 +81,22 @@ final class Transaction extends TraceableEvent
     {
         $this->stopClock();
 
+        $this->assertResult($result);
         $this->result = $result;
+    }
+
+    /**
+     * @param mixed $result
+     *
+     * @return void
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function assertResult($result)
+    {
+        if (null !== $result && false === is_string($result)) {
+            throw new \InvalidArgumentException('The [result] must be of type string or null.');
+        }
     }
 
     /**
