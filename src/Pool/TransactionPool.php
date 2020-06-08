@@ -16,15 +16,10 @@ interface TransactionPool
     /**
      * @return Transaction[]
      */
-    public function findFinished();
+    public function findFinishedAndDelete();
 
     /**
      * @return Transaction|null
      */
     public function findLastUnfinished();
-
-    /**
-     * @return void
-     */
-    public function eraseAll();
 }

@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Pool;
 
 use ZoiloMora\ElasticAPM\Events\Error\Error;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
 
 interface ErrorPool
 {
@@ -14,12 +15,9 @@ interface ErrorPool
     public function put(Error $item);
 
     /**
+     * @param Transaction $transaction
+     *
      * @return Error[]
      */
-    public function findAll();
-
-    /**
-     * @return void
-     */
-    public function eraseAll();
+    public function findAndDelete(Transaction $transaction);
 }

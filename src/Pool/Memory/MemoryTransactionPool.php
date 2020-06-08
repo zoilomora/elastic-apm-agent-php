@@ -20,14 +20,21 @@ final class MemoryTransactionPool extends MemoryPool implements TransactionPool
     /**
      * @return Transaction[]
      */
-    public function findFinished()
+    public function findFinishedAndDelete()
     {
-        return array_filter(
-            $this->items,
-            static function (Transaction $item) {
-                return $item->isFinished();
+        $result = [];
+
+        /** @var Transaction $item */
+        foreach ($this->items as $key => $item) {
+            if (false === $item->isFinished()) {
+                continue;
             }
-        );
+
+            $result[] = $item;
+            unset($this->items[$key]);
+        }
+
+        return $result;
     }
 
     /**
@@ -47,13 +54,5 @@ final class MemoryTransactionPool extends MemoryPool implements TransactionPool
         }
 
         return null;
-    }
-
-    /**
-     * @return void
-     */
-    public function eraseAll()
-    {
-        $this->reset();
     }
 }

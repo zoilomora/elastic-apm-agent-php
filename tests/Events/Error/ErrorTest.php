@@ -32,6 +32,28 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
+    public function given_data_when_instantiating_then_return_can_get_properties()
+    {
+        $traceId = 'trace-id';
+        $parentId = 'parent-id';
+        $exception = new \Exception();
+        $context = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Context');
+        $transactionId = 'transaction-id';
+
+        $object = new Error(
+            $traceId,
+            $parentId,
+            $exception,
+            $context,
+            $transactionId
+        );
+
+        self::assertSame($transactionId, $object->transactionId());
+    }
+
+    /**
+     * @test
+     */
     public function given_a_error_set_when_serialize_then_right_serialization()
     {
         $contextValue = '';

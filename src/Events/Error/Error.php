@@ -75,6 +75,14 @@ final class Error extends TraceableEvent
     }
 
     /**
+     * @return string|null
+     */
+    public function transactionId()
+    {
+        return $this->transactionId;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

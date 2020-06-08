@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Pool\Memory;
 
 use ZoiloMora\ElasticAPM\Events\Error\Error;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
 use ZoiloMora\ElasticAPM\Pool\ErrorPool;
 
 final class MemoryErrorPool extends MemoryPool implements ErrorPool
@@ -18,18 +19,24 @@ final class MemoryErrorPool extends MemoryPool implements ErrorPool
     }
 
     /**
+     * @param Transaction $transaction
+     *
      * @return Error[]
      */
-    public function findAll()
+    public function findAndDelete(Transaction $transaction)
     {
-        return $this->items;
-    }
+        $result = [];
 
-    /**
-     * @return void
-     */
-    public function eraseAll()
-    {
-        $this->reset();
+        /** @var Error $item */
+        foreach ($this->items as $key => $item) {
+            if ($item->transactionId() !== $transaction->id()) {
+                continue;
+            }
+
+            $result[] = $item;
+            unset($this->items[$key]);
+        }
+
+        return $result;
     }
 }

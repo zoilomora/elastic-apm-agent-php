@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Pool;
 
 use ZoiloMora\ElasticAPM\Events\Span\Span;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
 
 interface SpanPool
 {
@@ -14,17 +15,14 @@ interface SpanPool
     public function put(Span $item);
 
     /**
+     * @param Transaction $transaction
+     *
      * @return Span[]
      */
-    public function findFinished();
+    public function findFinishedAndDelete(Transaction $transaction);
 
     /**
      * @return Span|null
      */
     public function findLastUnfinished();
-
-    /**
-     * @return void
-     */
-    public function eraseAll();
 }

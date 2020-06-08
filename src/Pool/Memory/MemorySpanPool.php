@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Pool\Memory;
 
 use ZoiloMora\ElasticAPM\Events\Span\Span;
+use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
 use ZoiloMora\ElasticAPM\Pool\SpanPool;
 
 final class MemorySpanPool extends MemoryPool implements SpanPool
@@ -18,16 +19,29 @@ final class MemorySpanPool extends MemoryPool implements SpanPool
     }
 
     /**
+     * @param Transaction $transaction
+     *
      * @return Span[]
      */
-    public function findFinished()
+    public function findFinishedAndDelete(Transaction $transaction)
     {
-        return array_filter(
-            $this->items,
-            static function (Span $item) {
-                return $item->isFinished();
+        $result = [];
+
+        /** @var Span $item */
+        foreach ($this->items as $key => $item) {
+            if ($item->transactionId() !== $transaction->id()) {
+                continue;
             }
-        );
+
+            if (false === $item->isFinished()) {
+                continue;
+            }
+
+            $result[] = $item;
+            unset($this->items[$key]);
+        }
+
+        return $result;
     }
 
     /**
@@ -47,13 +61,5 @@ final class MemorySpanPool extends MemoryPool implements SpanPool
         }
 
         return null;
-    }
-
-    /**
-     * @return void
-     */
-    public function eraseAll()
-    {
-        $this->reset();
     }
 }

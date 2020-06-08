@@ -189,13 +189,10 @@ final class ElasticApmTracer
     public function flush()
     {
         if (false === $this->coreConfiguration->active()) {
-            $this->eraseAllPools();
-
             return;
         }
 
         $items = $this->getEventsToSend();
-        $this->eraseAllPools();
 
         if (1 === count($items)) {
             return;
@@ -211,24 +208,24 @@ final class ElasticApmTracer
      */
     private function getEventsToSend()
     {
+        $transactions = $this->transactionPool->findFinishedAndDelete();
+
+        $events = [];
+        foreach ($transactions as $transaction) {
+            $events = array_merge(
+                $events,
+                $this->spanPool->findFinishedAndDelete($transaction),
+                $this->errorPool->findAndDelete($transaction)
+            );
+        }
+
         return array_merge(
             [
                 $this->metadata,
             ],
-            $this->transactionPool->findFinished(),
-            $this->spanPool->findFinished(),
-            $this->errorPool->findAll()
+            $transactions,
+            $events
         );
-    }
-
-    /**
-     * @return void
-     */
-    private function eraseAllPools()
-    {
-        $this->transactionPool->eraseAll();
-        $this->spanPool->eraseAll();
-        $this->errorPool->eraseAll();
     }
 
     /**

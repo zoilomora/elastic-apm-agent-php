@@ -113,6 +113,10 @@ class DistributedTracingTest extends TestCase
 
         $span->stop();
 
+        $this->agent->captureException(
+            new \Exception('test!')
+        );
+
         $transaction->stop();
         $this->agent->flush();
 
