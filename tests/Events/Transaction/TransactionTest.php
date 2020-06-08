@@ -55,6 +55,40 @@ class TransactionTest extends TestCase
     /**
      * @test
      */
+    public function given_a_transaction_when_finish_with_null_result_then_has_been_finalized()
+    {
+        $object = $this->generateTransaction();
+        $object->stop(null);
+
+        self::assertTrue($object->isFinished());
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_transaction_when_finish_with_string_result_then_has_been_finalized()
+    {
+        $object = $this->generateTransaction();
+        $object->stop('result');
+
+        self::assertTrue($object->isFinished());
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_transaction_when_finish_with_not_allowed_type_of_result_then_throw_exception()
+    {
+        $object = $this->generateTransaction();
+
+        self::setExpectedException('InvalidArgumentException', 'The [result] must be of type string or null.');
+
+        $object->stop(1);
+    }
+
+    /**
+     * @test
+     */
     public function given_a_transaction_when_serialize_then_right_serialization()
     {
         $contextValue = 'context';
