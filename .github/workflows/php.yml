@@ -23,7 +23,10 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: xdebug
-      
+
+    - name: Disabling TLS for composer
+      run: composer config disable-tls true
+
     - name: Validate composer.json and composer.lock
       run: composer validate
 
