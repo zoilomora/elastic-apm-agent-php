@@ -186,28 +186,45 @@ class StacktraceFrame implements \JsonSerializable
             return null;
         }
 
-        $arguments = $debugBacktrace['args'];
-
-        $args = [];
-        foreach ($arguments as $argument) {
-            if (true === is_object($argument)) {
-                $args[] = 'Instance of ' . get_class($argument);
-
-                continue;
-            }
-
-            if (true === is_string($argument) && false === mb_check_encoding($argument, 'utf-8')) {
-                $args[] = 'Malformed UTF-8 characters, possibly incorrectly encoded';
-
-                continue;
-            }
-
-            $args[] = $argument;
-        }
+        $args = self::normalizeArguments($debugBacktrace['args']);
 
         return 0 === count($args)
             ? null
             : $args;
+    }
+
+    /**
+     * @param array $arguments
+     *
+     * @return array
+     */
+    private static function normalizeArguments(array $arguments)
+    {
+        $args = [];
+
+        foreach ($arguments as $argument) {
+            $args[] = self::normalizeArgument($argument);
+        }
+
+        return $args;
+    }
+
+    /**
+     * @param mixed $argument
+     *
+     * @return mixed
+     */
+    private static function normalizeArgument($argument)
+    {
+        if (true === is_object($argument)) {
+            return 'Instance of ' . get_class($argument);
+        }
+
+        if (true === is_string($argument) && false === mb_check_encoding($argument, 'utf-8')) {
+            return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+        }
+
+        return $argument;
     }
 
     /**
