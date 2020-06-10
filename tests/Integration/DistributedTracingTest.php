@@ -79,7 +79,7 @@ class DistributedTracingTest extends TestCase
         );
 
         // Simulate that it comes from a request
-        $_SERVER['HTTP_ELASTIC_APM_TRACEPARENT'] = $spanCache->distributedTracing();
+        $_SERVER['HTTP_ELASTIC_APM_TRACEPARENT'] = $spanHttp->distributedTracing();
         $transaction2 = ElasticApmTracerSingleton::instance()->startTransaction('GET /data', 'request');
 
         usleep(rand(2000, 150000));

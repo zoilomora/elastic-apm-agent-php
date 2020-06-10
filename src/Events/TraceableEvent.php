@@ -66,7 +66,7 @@ abstract class TraceableEvent extends Event
     {
         $distributedTracing = new DistributedTracing(
             $this->traceId,
-            $this->parentId
+            $this->id
         );
 
         return (string) $distributedTracing;
