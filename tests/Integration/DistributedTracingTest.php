@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Tests\Integration;
 
 use ZoiloMora\ElasticAPM\ElasticApmTracerSingleton;
+use ZoiloMora\ElasticAPM\Reporter\InfallibleReporter;
 use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
 use ZoiloMora\ElasticAPM\Configuration\CoreConfiguration;
 use ZoiloMora\ElasticAPM\ElasticApmTracer;
@@ -31,7 +32,9 @@ class DistributedTracingTest extends TestCase
                 CoreConfiguration::create([
                     'appName' => 'service-two',
                 ]),
-                new ApmServerCurlReporter('http://apm-server:8200'),
+                new InfallibleReporter(
+                    new ApmServerCurlReporter('http://apm-server:8200')
+                ),
                 MemoryPoolFactory::create()
             )
         );
