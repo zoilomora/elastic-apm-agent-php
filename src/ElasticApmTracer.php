@@ -77,6 +77,14 @@ final class ElasticApmTracer
     }
 
     /**
+     * @return bool
+     */
+    public function active()
+    {
+        return $this->coreConfiguration->active();
+    }
+
+    /**
      * @param string $name
      * @param string $type
      * @param Context $context
@@ -188,7 +196,7 @@ final class ElasticApmTracer
      */
     public function flush()
     {
-        if (false === $this->coreConfiguration->active()) {
+        if (false === $this->active()) {
             return;
         }
 
