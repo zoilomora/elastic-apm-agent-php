@@ -26,7 +26,7 @@ final class InfallibleReporter implements Reporter
     {
         try {
             $this->reporter->report($events);
-        } catch (\Throwable $exception) {
+        } catch (\Exception $exception) {
             // Nothing
         }
     }
