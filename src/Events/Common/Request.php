@@ -5,6 +5,7 @@ namespace ZoiloMora\ElasticAPM\Events\Common;
 use ZoiloMora\ElasticAPM\Events\Common\Request\Socket;
 use ZoiloMora\ElasticAPM\Events\Common\Request\Url;
 use ZoiloMora\ElasticAPM\Helper\Encoding;
+use ZoiloMora\ElasticAPM\Helper\HttpHeaderSanitizer;
 
 /**
  * If a log record was generated as a result of a http request,
@@ -225,6 +226,8 @@ class Request implements \JsonSerializable
 
             $headers[$header] = $value;
         }
+
+        $headers = HttpHeaderSanitizer::sanitize($headers);
 
         return 0 !== count($headers)
             ? $headers
