@@ -85,7 +85,7 @@ Read [LICENSE](LICENSE) for more information
 [link-author]: https://github.com/zoilomora
 [link-contributors]: https://github.com/zoilomora/elastic-apm-agent-php/contributors
 
-[Intake API v2]: https://www.elastic.co/guide/en/apm/server/7.6/intake-api.html
+[Intake API v2]: https://www.elastic.co/guide/en/apm/server/7.7/intake-api.html
 [Elastic APM]: https://www.elastic.co/apm
 [official APM Agent]: https://www.elastic.co/guide/en/apm/agent/index.html
 [PHP 5.4]: https://www.php.net/ChangeLog-5.php#5.4.0
