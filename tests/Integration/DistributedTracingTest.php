@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Tests\Integration;
 
 use ZoiloMora\ElasticAPM\ElasticApmTracerSingleton;
+use ZoiloMora\ElasticAPM\Events\Common\Context\Response;
 use ZoiloMora\ElasticAPM\Reporter\InfallibleReporter;
 use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
 use ZoiloMora\ElasticAPM\Configuration\CoreConfiguration;
@@ -22,6 +23,7 @@ class DistributedTracingTest extends TestCase
         $this->agent = new ElasticApmTracer(
             CoreConfiguration::create([
                 'appName' => 'service-one',
+                'stacktraceLimit' => 3,
             ]),
             new ApmServerCurlReporter('http://apm-server:8200'),
             MemoryPoolFactory::create()
@@ -31,6 +33,7 @@ class DistributedTracingTest extends TestCase
             new ElasticApmTracer(
                 CoreConfiguration::create([
                     'appName' => 'service-two',
+                    'stacktraceLimit' => 3,
                 ]),
                 new InfallibleReporter(
                     new ApmServerCurlReporter('http://apm-server:8200')
@@ -100,7 +103,8 @@ class DistributedTracingTest extends TestCase
             new Context\Http(
                 'http://service-two/orders/23423423',
                 200,
-                'GET'
+                'GET',
+                new Response(true, null, null, 200)
             )
         );
         $spanHttp->stop();

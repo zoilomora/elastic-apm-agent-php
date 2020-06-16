@@ -26,7 +26,7 @@ I know [PHP 5.4] is very old (01 Mar 2012) but today there is still code working
 
 I wanted to make it as easy as possible to develop new microservices and also to make it possible to help legacy code refactors be easier to accomplish.
 
-I have based myself on the official [API reference of version 7.6].
+I have based myself on the official [API reference of version 7.7].
 
 ## Installation
 
@@ -89,6 +89,6 @@ Read [LICENSE](LICENSE) for more information
 [Elastic APM]: https://www.elastic.co/apm
 [official APM Agent]: https://www.elastic.co/guide/en/apm/agent/index.html
 [PHP 5.4]: https://www.php.net/ChangeLog-5.php#5.4.0
-[API reference of version 7.6]: https://github.com/elastic/apm-server/tree/cd7a2425afa0f8d8726ea0905c03221d02322312/docs/spec
+[API reference of version 7.7]: https://github.com/elastic/apm-server/tree/2ad1c15aa2d1c364b92d2fb8e45cfe7b5a0ff317/docs/spec
 [composer]: https://getcomposer.org/
 [official environment variables]: https://www.elastic.co/guide/en/apm/server/master/metadata-api.html#kubernetes-data

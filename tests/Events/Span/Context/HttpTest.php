@@ -25,12 +25,14 @@ class HttpTest extends TestCase
         $url = 'http://example.com/index.php';
         $statusCode = 200;
         $method = 'POST';
+        $response = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\HttpResponse');
 
-        $object = new Http($url, $statusCode, $method);
+        $object = new Http($url, $statusCode, $method, $response);
 
         self::assertSame($url, $object->url());
         self::assertSame($statusCode, $object->statusCode());
         self::assertSame($method, $object->method());
+        self::assertSame($response, $object->response());
     }
 
     /**
@@ -41,13 +43,17 @@ class HttpTest extends TestCase
         $url = 'http://example.com/index.php';
         $statusCode = 200;
         $method = 'POST';
+        $responseValue = 'response';
 
-        $object = new Http($url, $statusCode, $method);
+        $responseMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\HttpResponse', $responseValue);
+
+        $object = new Http($url, $statusCode, $method, $responseMock);
 
         $expected = json_encode([
             'url' => $url,
             'status_code' => $statusCode,
             'method' => $method,
+            'response' => $responseValue,
         ]);
 
         self::assertSame($expected, json_encode($object));

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZoiloMora\ElasticAPM\Tests\Events\Common\Service;
+namespace ZoiloMora\ElasticAPM\Tests\Events\Common\Context;
 
 use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
 use ZoiloMora\ElasticAPM\Events\Common\Context\Response;
@@ -23,21 +23,20 @@ class ResponseTest extends TestCase
     public function given_data_when_instantiating_then_can_get_properties()
     {
         $finished = 'finished';
-        $headers = [];
         $headersSent = true;
-        $statusCode = 200;
 
         $object = new Response(
             $finished,
-            $headers,
+            null,
             $headersSent,
-            $statusCode
+            null,
+            null,
+            null,
+            null
         );
 
         self::assertSame($finished, $object->finished());
-        self::assertSame($headers, $object->headers());
         self::assertSame($headersSent, $object->headersSent());
-        self::assertSame($statusCode, $object->statusCode());
     }
 
     /**
@@ -46,24 +45,27 @@ class ResponseTest extends TestCase
     public function given_a_response_when_serialize_then_right_serialization()
     {
         $finished = 'finished';
-        $headers = [];
         $headersSent = true;
-        $statusCode = 200;
 
         $object = new Response(
             $finished,
-            $headers,
+            null,
             $headersSent,
-            $statusCode
+            null,
+            null,
+            null,
+            null
         );
 
-        $expected = json_encode([
-            'finished' => $finished,
-            'headers' => $headers,
-            'headers_sent' => $headersSent,
-            'status_code' => $statusCode,
-        ]);
+        $actual = json_decode(
+            json_encode($object),
+            true
+        );
 
-        self::assertSame($expected, json_encode($object));
+        self::assertArrayHasKey('finished', $actual);
+        self::assertArrayHasKey('headers_sent', $actual);
+
+        self::assertSame($finished, $actual['finished']);
+        self::assertSame($headersSent, $actual['headers_sent']);
     }
 }
