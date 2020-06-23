@@ -1,5 +1,5 @@
 {
-    "$id": "doc/spec/metadata.json",
+    "$id": "docs/spec/metadata.json",
     "title": "Metadata",
     "description": "Metadata concerning the other objects in the stream.",
     "type": ["object"],
@@ -29,6 +29,9 @@
             "description": "Describes the authenticated User for a request.",
             "$ref": "user.json"
         },
+	"cloud": {
+            "$ref": "cloud.json"
+	},
         "labels": {
             "$ref": "tags.json"
         }

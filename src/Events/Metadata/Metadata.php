@@ -3,6 +3,7 @@
 namespace ZoiloMora\ElasticAPM\Events\Metadata;
 
 use ZoiloMora\ElasticAPM\Configuration\CoreConfiguration;
+use ZoiloMora\ElasticAPM\Events\Common\Cloud;
 use ZoiloMora\ElasticAPM\Events\Common\Process;
 use ZoiloMora\ElasticAPM\Events\Common\System;
 use ZoiloMora\ElasticAPM\Events\Common\Tags;
@@ -36,6 +37,11 @@ final class Metadata implements \JsonSerializable
     private $user;
 
     /**
+     * @var Cloud|null
+     */
+    private $cloud;
+
+    /**
      * @var Tags|null
      */
     private $labels;
@@ -45,6 +51,7 @@ final class Metadata implements \JsonSerializable
      * @param Process|null $process
      * @param System|null $system
      * @param User|null $user
+     * @param Cloud|null $cloud
      * @param Tags|null $labels
      */
     public function __construct(
@@ -52,12 +59,14 @@ final class Metadata implements \JsonSerializable
         Process $process = null,
         System $system = null,
         User $user = null,
+        Cloud $cloud = null,
         Tags $labels = null
     ) {
         $this->service = $service;
         $this->process = $process;
         $this->system = $system;
         $this->user = $user;
+        $this->cloud = $cloud;
         $this->labels = $labels;
     }
 
@@ -94,6 +103,14 @@ final class Metadata implements \JsonSerializable
     }
 
     /**
+     * @return Cloud|null
+     */
+    public function cloud()
+    {
+        return $this->cloud;
+    }
+
+    /**
      * @return Tags|null
      */
     public function labels()
@@ -126,6 +143,7 @@ final class Metadata implements \JsonSerializable
                 'process' => $this->process,
                 'system' => $this->system,
                 'user' => $this->user,
+                'cloud' => $this->cloud,
                 'labels' => $this->labels,
             ]
         ];

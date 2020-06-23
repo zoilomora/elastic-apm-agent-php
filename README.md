@@ -24,9 +24,9 @@ I couldn't find an [official APM Agent] for PHP.
 I have searched for unofficial options but I have not found any with backwards compatibility of PHP version (>= 5.4).
 I know [PHP 5.4] is very old (01 Mar 2012) but today there is still code working even with older versions.
 
-I wanted to make it as easy as possible to develop new microservices and also to make it possible to help legacy code refactors be easier to accomplish.
+I wanted to make it as easy as possible to develop new services and also to make it possible to help legacy code refactors be easier to accomplish.
 
-I have based myself on the official [API reference of version 7.7].
+I have based myself on the official [API reference of version 7.8].
 
 ## Installation
 
@@ -85,10 +85,10 @@ Read [LICENSE](LICENSE) for more information
 [link-author]: https://github.com/zoilomora
 [link-contributors]: https://github.com/zoilomora/elastic-apm-agent-php/contributors
 
-[Intake API v2]: https://www.elastic.co/guide/en/apm/server/7.7/intake-api.html
+[Intake API v2]: https://www.elastic.co/guide/en/apm/server/7.8/intake-api.html
 [Elastic APM]: https://www.elastic.co/apm
 [official APM Agent]: https://www.elastic.co/guide/en/apm/agent/index.html
 [PHP 5.4]: https://www.php.net/ChangeLog-5.php#5.4.0
-[API reference of version 7.7]: https://github.com/elastic/apm-server/tree/2ad1c15aa2d1c364b92d2fb8e45cfe7b5a0ff317/docs/spec
+[API reference of version 7.8]: https://github.com/elastic/apm-server/tree/3538accf603e04043223680189415aff7c8380af/docs/spec
 [composer]: https://getcomposer.org/
 [official environment variables]: https://www.elastic.co/guide/en/apm/server/master/metadata-api.html#kubernetes-data
