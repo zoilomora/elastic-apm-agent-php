@@ -15,7 +15,12 @@ Thumbs.db
 # Mac DS_Store Files
 .DS_Store
 
-/report/
+# Docker Compose
+docker-compose.override.yml
+
+# PHP Composer
 /vendor/
-/var
 composer.lock
+
+# PHPUnit
+/report/
