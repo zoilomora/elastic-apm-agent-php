@@ -54,4 +54,34 @@ class SpanTest extends TestCase
         self::assertSame($count, $object->count());
         self::assertSame($sum, $object->sum());
     }
+
+    /**
+     * @test
+     */
+    public function given_a_span_when_serialize_then_right_serialization()
+    {
+        $transactionId = 'transactionId';
+        $type = 'type';
+        $subType = 'subType';
+        $count = 1;
+        $sum = 1.1;
+
+        $object = new Span(
+            $transactionId,
+            $type,
+            $subType,
+            $count,
+            $sum
+        );
+
+        $expected = json_encode([
+            'transaction_id' => $transactionId,
+            'type' => $type,
+            'sub_type' => $subType,
+            'count' => $count,
+            'sum' => $sum,
+        ]);
+
+        self::assertSame($expected, json_encode($object));
+    }
 }

@@ -7,10 +7,10 @@ use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\ByIdFinder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\ByParentIdFinder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\FromEventsSpanBuilder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupBySpanTypes;
-use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupSpanByTransactionId;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\MeasurableEventsFinder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\MetricsSetBuilder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SelfDurationCalculator;
+use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroupsByTransactionId;
 
 final class Handler
 {
@@ -45,7 +45,7 @@ final class Handler
                     new ByParentIdFinder(),
                     new SelfDurationCalculator()
                 ),
-                new GroupSpanByTransactionId(),
+                new SpanGroupsByTransactionId(),
                 new ByIdFinder(),
                 new GroupBySpanTypes(),
                 new MetricsSetBuilder()
