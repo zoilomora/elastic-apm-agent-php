@@ -7,7 +7,7 @@ use ZoiloMora\ElasticAPM\Helper\Encoding;
 final class Agent implements \JsonSerializable
 {
     const NAME = 'zoilomora/elastic-apm-agent-php';
-    const VERSION = '0.1.15';
+    const VERSION = '1.0.0';
 
     /**
      * Name of the Elastic APM agent, e.g. "Python"
