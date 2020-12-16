@@ -18,6 +18,10 @@ final class Encoding
      */
     public static function keywordField($value)
     {
+        if (false === is_string($value)) {
+            return $value;
+        }
+
         if (strlen($value) <= self::KEYWORD_MAX_LENGTH) {
             return $value;
         }

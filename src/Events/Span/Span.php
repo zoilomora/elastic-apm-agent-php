@@ -28,6 +28,13 @@ final class Span extends TraceableEvent
     private $transactionId;
 
     /**
+     * List of successor transactions and/or spans.
+     *
+     * @var array|null
+     */
+    private $childIds;
+
+    /**
      * Offset relative to the transaction's timestamp identifying the start of the span, in milliseconds
      *
      * @var double|null
@@ -90,6 +97,7 @@ final class Span extends TraceableEvent
         $this->type = $type;
         $this->subtype = $subtype;
         $this->transactionId = $transactionId;
+        $this->childIds = null;
         $this->action = $action;
         $this->context = $context;
         $this->name = $name;
@@ -139,6 +147,7 @@ final class Span extends TraceableEvent
                     'type' => $this->getEncodingType(),
                     'subtype' => $this->getEncodingSubtype(),
                     'transaction_id' => Encoding::keywordField($this->transactionId),
+                    'child_ids' => $this->childIds,
                     'start' => $this->start,
                     'action' => Encoding::keywordField($this->action),
                     'context' => $this->context,

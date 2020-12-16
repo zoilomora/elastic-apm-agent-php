@@ -16,6 +16,7 @@ class MetadataTest extends TestCase
         $process = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Process');
         $system = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\System');
         $user = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\User');
+        $cloud = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Cloud');
         $labels = $this->getMockWithoutConstructor('ZoiloMora\ElasticAPM\Events\Common\Tags');
 
         $object = new Metadata(
@@ -23,6 +24,7 @@ class MetadataTest extends TestCase
             $process,
             $system,
             $user,
+            $cloud,
             $labels
         );
 
@@ -30,6 +32,7 @@ class MetadataTest extends TestCase
         self::assertSame($process, $object->process());
         self::assertSame($system, $object->system());
         self::assertSame($user, $object->user());
+        self::assertSame($cloud, $object->cloud());
         self::assertSame($labels, $object->labels());
     }
 
@@ -57,12 +60,14 @@ class MetadataTest extends TestCase
         $processValue = 'process';
         $systemValue = 'system';
         $userValue = 'user';
+        $cloudValue = 'user';
         $labelsValue = 'labels';
 
         $serviceMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Metadata\Service', $serviceValue);
         $processMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\Process', $processValue);
         $systemMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\System', $systemValue);
         $userMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\User', $userValue);
+        $cloudMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\Cloud', $cloudValue);
         $labelsMock = $this->getMockSerializable('ZoiloMora\ElasticAPM\Events\Common\Tags', $labelsValue);
 
         $object = new Metadata(
@@ -70,6 +75,7 @@ class MetadataTest extends TestCase
             $processMock,
             $systemMock,
             $userMock,
+            $cloudMock,
             $labelsMock
         );
 
@@ -79,6 +85,7 @@ class MetadataTest extends TestCase
                 'process' => $processValue,
                 'system' => $systemValue,
                 'user' => $userValue,
+                'cloud' => $cloudValue,
                 'labels' => $labelsValue,
             ],
         ]);
