@@ -2,7 +2,7 @@
 
 namespace ZoiloMora\ElasticAPM\Processor\MetricSetProcessor;
 
-final class Span
+final class Span implements \JsonSerializable
 {
     /**
      * @var string
@@ -83,5 +83,19 @@ final class Span
     public function sum()
     {
         return $this->sum;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'transaction_id' => $this->transactionId,
+            'type' => $this->type,
+            'sub_type' => $this->subType,
+            'count' => $this->count,
+            'sum' => $this->sum,
+        ];
     }
 }

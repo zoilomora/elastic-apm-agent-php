@@ -7,9 +7,9 @@ use ZoiloMora\ElasticAPM\Events\Transaction\Transaction;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\ByIdFinder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\FromEventsSpanBuilder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupBySpanTypes;
-use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupSpanByTransactionId;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\MeasurableEventsFinder;
 use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\MetricsSetBuilder;
+use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroupsByTransactionId;
 
 final class MetricSetProcessor implements Processor
 {
@@ -24,9 +24,9 @@ final class MetricSetProcessor implements Processor
     private $fromEventsSpanBuilder;
 
     /**
-     * @var GroupSpanByTransactionId
+     * @var SpanGroupsByTransactionId
      */
-    private $groupSpanByTransactionId;
+    private $spanGroupsByTransactionId;
 
     /**
      * @var ByIdFinder
@@ -47,7 +47,7 @@ final class MetricSetProcessor implements Processor
     /**
      * @param MeasurableEventsFinder $measurableEventsFinder
      * @param FromEventsSpanBuilder $fromEventsSpanBuilder
-     * @param GroupSpanByTransactionId $groupSpanByTransactionId
+     * @param SpanGroupsByTransactionId $spanGroupsByTransactionId
      * @param ByIdFinder $byIdFinder
      * @param GroupBySpanTypes $groupBySpanTypes
      * @param MetricsSetBuilder $metricsSetBuilder
@@ -55,14 +55,14 @@ final class MetricSetProcessor implements Processor
     public function __construct(
         MeasurableEventsFinder $measurableEventsFinder,
         FromEventsSpanBuilder $fromEventsSpanBuilder,
-        GroupSpanByTransactionId $groupSpanByTransactionId,
+        SpanGroupsByTransactionId $spanGroupsByTransactionId,
         ByIdFinder $byIdFinder,
         GroupBySpanTypes $groupBySpanTypes,
         MetricsSetBuilder $metricsSetBuilder
     ) {
         $this->measurableEventsFinder = $measurableEventsFinder;
         $this->fromEventsSpanBuilder = $fromEventsSpanBuilder;
-        $this->groupSpanByTransactionId = $groupSpanByTransactionId;
+        $this->spanGroupsByTransactionId = $spanGroupsByTransactionId;
         $this->byIdFinder = $byIdFinder;
         $this->groupBySpanTypes = $groupBySpanTypes;
         $this->metricsSetBuilder = $metricsSetBuilder;
@@ -83,19 +83,19 @@ final class MetricSetProcessor implements Processor
             $spans[] = $this->fromEventsSpanBuilder->execute($event, $measurableEvents);
         }
 
-        $spansGroupedByTransactionId = $this->groupSpanByTransactionId->execute($spans);
+        $spanGroups = $this->spanGroupsByTransactionId->execute($spans);
 
         $metricSets = [];
-        foreach ($spansGroupedByTransactionId as $transactionId => $spansGrouped) {
+        foreach ($spanGroups as $spanGroup) {
             /** @var Transaction $transaction */
             $transaction = $this->byIdFinder->execute(
-                $transactionId,
+                $spanGroup->transactionId(),
                 $measurableEvents
             );
 
             $groupedBySpanTypes = $this->groupBySpanTypes->execute(
-                $transactionId,
-                $spansGrouped
+                $spanGroup->transactionId(),
+                $spanGroup->spans()
             );
 
             $metricSets = array_merge(

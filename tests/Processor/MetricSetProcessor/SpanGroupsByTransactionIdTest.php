@@ -2,7 +2,7 @@
 
 namespace ZoiloMora\ElasticAPM\Tests\Processor\MetricSetProcessor;
 
-use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupSpanByTransactionId;
+use ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroupsByTransactionId;
 use ZoiloMora\ElasticAPM\Tests\Utils\TestCase;
 
 class GroupSpanByTransactionIdTest extends TestCase
@@ -25,15 +25,24 @@ class GroupSpanByTransactionIdTest extends TestCase
             $this->createSpan($transactionIdTwo),
         ];
 
-        $service = new GroupSpanByTransactionId();
+        $service = new SpanGroupsByTransactionId();
         $result = $service->execute(
             array_merge($spansOne, $spansTwo)
         );
 
-        self::assertArrayHasKey($transactionIdOne, $result);
-        self::assertArrayHasKey($transactionIdTwo, $result);
-        self::assertSame($spansOne, $result[$transactionIdOne]);
-        self::assertSame($spansTwo, $result[$transactionIdTwo]);
+        self::assertNotEmpty($result);
+        self::assertContainsOnlyInstancesOf(
+            'ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroup',
+            $result
+        );
+
+        $spanGroupOne = $result[0];
+        $spanGroupTwo = $result[1];
+
+        self::assertSame($transactionIdOne, $spanGroupOne->transactionId());
+        self::assertSame($transactionIdTwo, $spanGroupTwo->transactionId());
+        self::assertSame($spansOne, $spanGroupOne->spans());
+        self::assertSame($spansTwo, $spanGroupTwo->spans());
     }
 
     private function createSpan($transactionId)

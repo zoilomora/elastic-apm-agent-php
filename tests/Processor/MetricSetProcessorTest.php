@@ -54,12 +54,25 @@ class MetricSetProcessorTest extends TestCase
 
         $transactionId = '5a4sdf564sd6546sd';
 
+        $spanGroup = $this->getMockWithoutConstructor(
+            'ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroup'
+        );
+        $spanGroup
+            ->expects(self::exactly(2))
+            ->method('transactionId')
+            ->willReturn($transactionId);
+
+        $spanGroup
+            ->expects(self::once())
+            ->method('spans')
+            ->willReturn($metricSetSpans);
+
         $spansGroupedByTransactionId = [
-            $transactionId => $metricSetSpans,
+            $spanGroup
         ];
 
         $groupSpanByTransactionId = $this->getMockWithoutConstructor(
-            'ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\GroupSpanByTransactionId'
+            'ZoiloMora\ElasticAPM\Processor\MetricSetProcessor\SpanGroupsByTransactionId'
         );
         $groupSpanByTransactionId
             ->expects(self::once())
